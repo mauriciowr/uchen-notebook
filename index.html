@@ -1,0 +1,648 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#7a1f1f">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0}[hidden]{display:none!important}
+@font-face{font-family:"Noto Serif Tibetan";font-weight:400;font-style:normal;font-display:swap;src:url(fonts/noto-serif-tibetan-tibetan-400-normal.woff2) format("woff2");unicode-range:U+0F00-0FFF,U+200C-200D,U+25CC}
+@font-face{font-family:"Noto Serif Tibetan";font-weight:700;font-style:normal;font-display:swap;src:url(fonts/noto-serif-tibetan-tibetan-700-normal.woff2) format("woff2");unicode-range:U+0F00-0FFF,U+200C-200D,U+25CC}
+@font-face{font-family:"Literata";font-weight:400;font-style:normal;font-display:swap;src:url(fonts/literata-latin-400-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+2122}
+@font-face{font-family:"Literata";font-weight:600;font-style:normal;font-display:swap;src:url(fonts/literata-latin-600-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+2122}
+@font-face{font-family:"Literata";font-weight:400;font-style:normal;font-display:swap;src:url(fonts/literata-latin-ext-400-normal.woff2) format("woff2");unicode-range:U+0100-02AF,U+1E00-1EFF}
+@font-face{font-family:"Literata";font-weight:600;font-style:normal;font-display:swap;src:url(fonts/literata-latin-ext-600-normal.woff2) format("woff2");unicode-range:U+0100-02AF,U+1E00-1EFF}
+@font-face{font-family:"IBM Plex Mono";font-weight:400;font-style:normal;font-display:swap;src:url(fonts/ibm-plex-mono-latin-400-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+2000-206F}
+@font-face{font-family:"IBM Plex Mono";font-weight:500;font-style:normal;font-display:swap;src:url(fonts/ibm-plex-mono-latin-500-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+2000-206F}
+@font-face{font-family:"IBM Plex Mono";font-weight:400;font-style:normal;font-display:swap;src:url(fonts/ibm-plex-mono-latin-ext-400-normal.woff2) format("woff2");unicode-range:U+0100-02AF,U+1E00-1EFF}
+@font-face{font-family:"IBM Plex Mono";font-weight:500;font-style:normal;font-display:swap;src:url(fonts/ibm-plex-mono-latin-ext-500-normal.woff2) format("woff2");unicode-range:U+0100-02AF,U+1E00-1EFF}
+.sync{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.sync .st{color:var(--muted);font-size:.82rem}
+dialog{border:1px solid var(--line);border-radius:12px;background:var(--sheet);color:var(--ink);max-width:min(520px,92vw);padding:18px 20px}
+dialog::backdrop{background:rgba(0,0,0,.35)}
+dialog input{width:100%;font:inherit;font-family:var(--mono);font-size:.85rem;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink)}
+dialog ol{padding-left:20px;margin:8px 0;font-size:.92rem}
+dialog a{color:var(--maroon)}
+@media (display-mode: fullscreen),(display-mode: standalone){#fs{display:none!important}}
+</style>
+</head><body>
+<title>Caderno de Uchen</title>
+<style>
+/* Layout: caderno de uma coluna — tabela das 30 letras em cima, folha de traçado no centro, avaliação embaixo */
+:root{
+  --paper:#eef0ee; --sheet:#fbfbf9; --ink:#1f1d1b; --muted:#6b6560;
+  --line:#d6d2cc; --maroon:#7a1f1f; --saffron:#c98a12; --ghost:rgba(122,31,31,.16);
+  --good:#2f6b3a; --warn:#a3620d; --bad:#a12a2a;
+  --tib:"Noto Serif Tibetan","Jomolhari","Microsoft Himalaya",serif;
+  --body:"Literata",Georgia,serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#181614; --sheet:#22201d; --ink:#ece7df; --muted:#a39b91;
+  --line:#3a3631; --maroon:#e0806f; --saffron:#e3ad45; --ghost:rgba(224,128,111,.2);
+  --good:#7cc489; --warn:#e3ad45; --bad:#ef8a7c; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#181614; --sheet:#22201d; --ink:#ece7df; --muted:#a39b91;
+  --line:#3a3631; --maroon:#e0806f; --saffron:#e3ad45; --ghost:rgba(224,128,111,.2);
+  --good:#7cc489; --warn:#e3ad45; --bad:#ef8a7c; color-scheme:dark}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 40px}
+.wrap{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+header h1{font-size:1.5rem;margin:0;font-weight:600;text-wrap:balance}
+header p{margin:4px 0 0;color:var(--muted);font-size:.92rem}
+.lbl{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.table{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.cell{appearance:none;border:1px solid var(--line);background:var(--sheet);color:var(--ink);border-radius:6px;
+  padding:4px 0 2px;cursor:pointer;display:flex;flex-direction:column;align-items:center;font:inherit}
+.cell .g{font-family:var(--tib);font-size:1.6rem;line-height:1.5}
+.cell .r{font-family:var(--mono);font-size:.68rem;color:var(--muted)}
+.cell.done .r::after{content:" ✓";color:var(--good)}
+.cell[aria-current="true"]{border-color:var(--maroon);box-shadow:inset 0 0 0 1px var(--maroon)}
+.cell:focus-visible,.btn:focus-visible{outline:2px solid var(--saffron);outline-offset:2px}
+.info{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.info .big{font-family:var(--tib);font-size:2rem;color:var(--maroon);line-height:1}
+.info .name{font-family:var(--mono);font-size:1.1rem}
+.info .col{color:var(--muted);font-size:.9rem}
+.stage{position:relative;width:100%;aspect-ratio:1;max-width:100%;background:var(--sheet);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.stage canvas{position:absolute;inset:0;width:100%;height:100%}
+#ink{touch-action:none;cursor:crosshair}
+.bar{display:flex;flex-wrap:wrap;gap:8px}
+.btn{appearance:none;font:inherit;font-size:.9rem;border:1px solid var(--line);background:var(--sheet);color:var(--ink);
+  border-radius:999px;padding:8px 14px;cursor:pointer}
+.btn.primary{background:var(--maroon);border-color:var(--maroon);color:var(--sheet)}
+.btn[aria-pressed="true"]{border-color:var(--maroon);color:var(--maroon)}
+.result{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.meters{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.meter .v{font-family:var(--mono);font-size:1.4rem;font-variant-numeric:tabular-nums}
+.meter .track{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-top:4px}
+.meter .fill{height:100%;width:0;background:var(--muted);transition:width .3s}
+.verdict{margin:0;font-size:.95rem}
+.note{color:var(--muted);font-size:.85rem;margin:0}
+.pron{margin:-8px 0 0;font-size:.95rem;max-width:62ch}
+.pron .tone{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:999px;border:1px solid var(--line);margin-right:6px;white-space:nowrap}
+.pron .tone.hi{color:var(--saffron);border-color:var(--saffron)}
+.pron .tone.lo{color:var(--maroon);border-color:var(--maroon)}
+.notes a{color:var(--maroon)}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px}
+.tabs button{appearance:none;font:inherit;font-size:.88rem;white-space:nowrap;border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:999px;padding:6px 14px;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--maroon);border-color:var(--maroon);color:var(--sheet)}
+.tabs button:focus-visible{outline:2px solid var(--saffron);outline-offset:2px}
+.tabs.sub button{font-size:.82rem;padding:4px 12px;border-style:dashed}
+.tabs.sub button[aria-selected="true"]{background:transparent;color:var(--maroon);border-style:solid;box-shadow:inset 0 0 0 1px var(--maroon)}
+.intro{margin:2px 0 6px;font-size:.95rem;max-width:62ch}
+.table.free{grid-template-columns:repeat(auto-fill,minmax(76px,1fr))}
+.table.free .g{font-size:1.4rem}
+.dial{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:-6px}
+.btn.sm{padding:4px 12px;font-size:.82rem}
+.word{margin:-6px 0 0;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.word .wt{font-family:var(--tib);font-size:1.6rem;line-height:1.3}
+.word .wp{font-family:var(--mono);color:var(--maroon)}
+.word .wm{color:var(--muted)}
+.order{display:flex;flex-direction:column;gap:6px;background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:12px 16px}
+.order ol{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:4px;font-size:.95rem}
+.order ol li::marker{font-family:var(--mono);color:var(--maroon)}
+.order ol:empty{display:none}
+.notes{margin:0;padding-left:18px;color:var(--muted);font-size:.88rem;display:flex;flex-direction:column;gap:4px}
+.work,.side,.main{display:flex;flex-direction:column;gap:18px}
+.main{gap:12px}
+/* Paisagem: informações à esquerda, folha menor à direita, cabendo na altura da tela */
+@media (orientation: landscape) and (min-width: 700px){
+  .wrap{max-width:1180px}
+  .work{display:grid;grid-template-columns:minmax(260px,360px) auto;justify-content:start;align-items:start;gap:20px;scroll-margin-top:12px}
+  .side{gap:14px;max-height:calc(100dvh - 32px);overflow-y:auto;padding-right:6px;position:sticky;top:16px}
+  .side .pron{margin-top:-4px}
+  .main{position:sticky;top:16px;width:min(calc(100dvh - 120px), 560px, 58vw);min-width:300px}
+  .bar{gap:6px}
+  .bar .btn{padding:7px 12px;font-size:.85rem}
+}
+/* Cards */
+body.cards-mode .work,body.cards-mode .result,body.cards-mode #table,body.cards-mode #t-lbl{display:none!important}
+.cards{display:flex;flex-direction:column;gap:12px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{appearance:none;font:inherit;border:1px solid var(--line);background:var(--sheet);color:var(--muted);border-radius:10px;padding:6px 12px;cursor:pointer;display:flex;flex-direction:column;align-items:flex-start;line-height:1.2}
+.chip .cl{font-family:var(--tib);font-size:1.15rem;color:var(--ink)}
+.chip .cl.txt{font-family:var(--body);font-size:.92rem}
+.chip .cs{font-family:var(--mono);font-size:.66rem;letter-spacing:.04em}
+.chip[aria-pressed="true"]{border-color:var(--maroon);box-shadow:inset 0 0 0 1px var(--maroon);color:var(--maroon)}
+.chip:focus-visible{outline:2px solid var(--saffron);outline-offset:2px}
+.chipbar{display:flex;gap:8px;flex-wrap:wrap}
+.card{appearance:none;font:inherit;color:var(--ink);text-align:center;background:var(--sheet);border:1px solid var(--line);border-radius:14px;min-height:260px;padding:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;cursor:pointer;width:100%;max-width:640px}
+.card:focus-visible{outline:2px solid var(--saffron);outline-offset:2px}
+.card .cg{font-family:var(--tib);font-size:clamp(3rem,10vw,5.5rem);line-height:1.35;color:var(--maroon);overflow-wrap:anywhere}
+.card .cg.long{font-size:clamp(1.8rem,5vw,2.8rem)}
+.card .cr{font-family:var(--mono);font-size:1.3rem}
+.card .cp{max-width:46ch;font-size:.98rem}
+.card .cw{color:var(--muted);font-size:.92rem}
+.card .cw .wt{font-family:var(--tib);font-size:1.3rem;color:var(--ink)}
+.card .hint{color:var(--muted);font-size:.85rem}
+.card hr{width:60%;border:0;border-top:1px dashed var(--line);margin:4px 0}
+@media (prefers-reduced-motion: reduce){.meter .fill{transition:none}}
+</style>
+
+<div class="wrap">
+  <header>
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px"><h1>Caderno de Uchen</h1><button type="button" class="btn sm" id="fs" hidden>⛶ Tela cheia</button></div>
+    <div class="sync">
+      <button type="button" class="btn sm" id="sync">⟳ Sincronizar</button>
+      <button type="button" class="btn sm" id="syncCfg" aria-label="Configurar sincronização">⚙</button>
+      <span class="st" id="syncSt"></span>
+    </div>
+    <dialog id="dlg">
+      <form method="dialog" style="display:flex;flex-direction:column;gap:10px">
+        <strong>Sincronizar o progresso</strong>
+        <p class="note" style="margin:0">O progresso (letras feitas, seleção dos cards, pronúncia escolhida) fica numa gist <b>privada</b> da sua conta do GitHub. Cada aparelho precisa da chave uma vez.</p>
+        <ol>
+          <li>Abra <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com → Fine-grained token</a>.</li>
+          <li>Nome: <i>Caderno de Uchen</i>. Validade: a que preferir.</li>
+          <li>Em <b>Account permissions → Gists</b>, escolha <b>Read and write</b>. Nada mais.</li>
+          <li>Gere, copie e cole abaixo.</li>
+        </ol>
+        <input id="tok" type="password" autocomplete="off" placeholder="github_pat_…">
+        <div class="bar" style="justify-content:flex-end">
+          <button class="btn sm" value="forget" id="tokForget">Esquecer chave</button>
+          <button class="btn sm" value="cancel">Cancelar</button>
+          <button class="btn sm primary" value="save">Salvar</button>
+        </div>
+      </form>
+    </dialog>
+    <p>Das 30 consoantes aos mantras, uma lição por vez, e cards para revisar. Trace com caneta ou dedo, primeiro sobre o modelo e depois sem ele.</p>
+  </header>
+
+  <section aria-labelledby="t-lbl" style="display:flex;flex-direction:column;gap:6px">
+    <div class="tabs" id="tabs" role="tablist" aria-label="Lições"></div>
+    <div class="tabs sub" id="subtabs" role="tablist" aria-label="Mantras" hidden></div>
+    <p class="intro" id="lesIntro"></p>
+    <span class="lbl" id="t-lbl">Consoantes</span>
+    <div class="table" id="table"></div>
+  </section>
+
+  <section class="cards" id="cards" hidden aria-label="Cards">
+    <span class="lbl">O que entra no baralho</span>
+    <div class="chips" id="chips"></div>
+    <div class="chipbar">
+      <button type="button" class="btn sm" id="cAll">Todas as consoantes</button>
+      <button type="button" class="btn sm" id="cNone">Limpar seleção</button>
+    </div>
+    <div class="dial" role="group" aria-label="Frente do card"><span class="lbl">Frente</span><button type="button" class="btn sm" data-f="g">Letra</button><button type="button" class="btn sm" data-f="r">Som</button></div>
+    <div class="dial" role="group" aria-label="Pronúncia"><span class="lbl">Pronúncia</span><button type="button" class="btn sm" data-d="amdo">Amdo · Golok</button><button type="button" class="btn sm" data-d="lhasa">Lhasa</button></div>
+    <button type="button" class="card" id="card" aria-live="polite"></button>
+    <div class="bar">
+      <button class="btn primary" id="cShow" type="button">Mostrar</button>
+      <button class="btn" id="cWrong" type="button" hidden>Errei</button>
+      <button class="btn primary" id="cRight" type="button" hidden>Acertei</button>
+      <button class="btn" id="cShuffle" type="button">Embaralhar de novo</button>
+    </div>
+    <p class="note" id="cStat"></p>
+  </section>
+
+  <div class="work">
+  <div class="side">
+  <div class="info">
+    <span class="big" id="curG">ཀ</span>
+    <span class="name" id="curR">ka</span>
+    <span class="col" id="curC">linha 1 · não aspirada</span>
+  </div>
+  <div class="dial" role="group" aria-label="Pronúncia"><span class="lbl">Pronúncia</span><button type="button" class="btn sm" data-d="amdo">Amdo · Golok</button><button type="button" class="btn sm" data-d="lhasa">Lhasa</button></div>
+  <p class="note" id="dialNote"></p>
+  <p class="pron" id="curP"></p>
+  <p class="word" id="curW"></p>
+  <section class="order" aria-labelledby="o-lbl">
+    <span class="lbl" id="o-lbl">Ordem dos traços</span>
+    <ol id="curO"></ol>
+    <p class="note" id="curOn"></p>
+  </section>
+  </div>
+
+  <div class="main">
+  <div class="stage" id="stage">
+    <canvas id="guide" aria-hidden="true"></canvas>
+    <canvas id="ink" aria-label="Área de escrita"></canvas>
+  </div>
+
+  <div class="bar">
+    <button class="btn" id="prev" type="button">← Anterior</button>
+    <button class="btn" id="undo" type="button">Desfazer traço</button>
+    <button class="btn" id="clear" type="button">Limpar</button>
+    <button class="btn" id="toggle" type="button" aria-pressed="true">Modelo visível</button>
+    <button class="btn primary" id="check" type="button">Avaliar</button>
+    <button class="btn" id="next" type="button">Próxima →</button>
+  </div>
+  </div>
+  </div>
+
+  <section class="result" aria-live="polite">
+    <div class="meters">
+      <div class="meter"><span class="lbl">Cobertura</span><div class="v" id="covV">—</div><div class="track"><div class="fill" id="covF"></div></div></div>
+      <div class="meter"><span class="lbl">Precisão</span><div class="v" id="preV">—</div><div class="track"><div class="fill" id="preF"></div></div></div>
+    </div>
+    <p class="verdict" id="verdict">Escreva a letra e toque em <b>Avaliar</b>. Cobertura mede quanto da letra você traçou; precisão mede quanto do seu traço caiu sobre a forma.</p>
+    <p class="note">A avaliação compara formas, não a ordem dos traços. Para correção de ordem e proporção, tire um print e mande ao Claude.</p>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:6px">
+    <span class="lbl">Lembretes</span>
+    <ul class="notes">
+      <li>As letras pendem da linha superior (o "cabeçalho"), não se apoiam numa linha de base.</li>
+      <li>O cabeçalho vem sempre primeiro. Traços horizontais vão da esquerda para a direita, verticais de cima para baixo.</li>
+      <li>Os "ombros" (traços que descem em diagonal) começam finos e engrossam. Os traços que cruzam a "barriga" da letra são grossos no meio e finos nas pontas.</li>
+      <li>ཙ ཚ ཛ são ཅ ཆ ཇ com uma marca no alto. Compare ད com ང, e པ com ཕ e བ.</li>
+      <li>Pratique primeiro com o modelo, depois esconda-o e escreva de memória.</li>
+      <li>Escolha a pronúncia do seu professor no seletor acima da letra. A versão dele sempre vale mais do que a descrição.</li>
+      <li>Truque do inglês: k, t e p soam com sopro em “kite”, “top” e “pin”, e sem sopro depois de s, em “skate”, “stop” e “spin”.</li>
+      <li>Nas palavras de exemplo, a pronúncia nem sempre segue a escrita letra por letra. Letras mudas e empilhadas são assunto para depois das consoantes.</li>
+      <li>Ordem dos traços: <a href="https://sites.google.com/view/chrisfynn/home/tibetanscriptfonts/howtowritethetibetanscript" target="_blank" rel="noopener">Chris Fynn, How to write the Tibetan script</a>.</li>
+      <li>Guia de caligrafia: <a href="https://www.tibetanlanguage.org/wp-content/uploads/2021/09/Tibetan-Alphabet-Calligraphy-Guide-PDF.pdf" target="_blank" rel="noopener">guia de caligrafia do Tibetan Language Institute (PDF)</a>.</li>
+      <li>Áudio: <a href="https://en.wikiversity.org/wiki/Tibetan_Language/Learning_the_script_and_associated_phonemes" target="_blank" rel="noopener">Wikiversity, escrita e fonemas</a> e a <a href="https://www.tibetanlanguage.org/wp-content/uploads/2019/10/Level-1-Tibetan-Alphabet-with-phonetics.pdf" target="_blank" rel="noopener">tabela com fonética (PDF)</a>.</li>
+    </ul>
+  </section>
+</div>
+
+<script>
+const L=[["ཀ","ka"],["ཁ","kha"],["ག","ga"],["ང","nga"],["ཅ","ca"],["ཆ","cha"],["ཇ","ja"],["ཉ","nya"],
+["ཏ","ta"],["ཐ","tha"],["ད","da"],["ན","na"],["པ","pa"],["ཕ","pha"],["བ","ba"],["མ","ma"],
+["ཙ","tsa"],["ཚ","tsha"],["ཛ","dza"],["ཝ","wa"],["ཞ","zha"],["ཟ","za"],["འ","'a"],["ཡ","ya"],
+["ར","ra"],["ལ","la"],["ཤ","sha"],["ས","sa"],["ཧ","ha"],["ཨ","a"]];
+const HI="hi",LO="lo";
+const P=[
+[HI,"Como o k de “casa”, ou de “skate” em inglês: sem sopro.","ཀ་བ","kawa","pilar"],
+[HI,"Como o k de “kite” em inglês: com sopro forte.","ཁ","kha","boca"],
+[LO,"“ka” em tom grave; em leituras de dharma, muitos dizem o g de “gato”.","གངས","gang","neve"],
+[LO,"O “ng” de “sing” em inglês, mas no começo da sílaba.","ང","nga","eu"],
+[HI,"Como “tchau”, sem sopro.","ཅི","chi","o quê?"],
+[HI,"Como o ch de “chair” em inglês: com sopro forte.","ཆུ","chu","água"],
+[LO,"“tch” em tom grave, ou o dj de “jeans”.","ཇ","ja","chá"],
+[LO,"O “nh” de “ninho”.","ཉི་མ","nyima","sol"],
+[HI,"Como o t de “tatu”, ou de “stop” em inglês: sem sopro.","ཏིང་ངེ་འཛིན","tingdzin","concentração meditativa"],
+[HI,"Como o t de “top” em inglês: com sopro forte.","ཐུགས་རྗེ","tukje","compaixão"],
+[LO,"“ta” em tom grave, ou o d de “dado”.","ད་ལྟ","danta","agora"],
+[LO,"O n de “nada”.","ནམ་མཁའ","namkha","céu, espaço"],
+[HI,"Como o p de “pato”, ou de “spin” em inglês: sem sopro.","པད་མ","pema","lótus"],
+[HI,"Como o p de “pin” em inglês: com sopro forte.","ཕ་མ","pama","pai e mãe"],
+[LO,"“pa” em tom grave, ou o b de “bala”.","བུ","bu","filho"],
+[LO,"O m de “mar”.","མ","ma","mãe"],
+[HI,"Como o ts de “cats” em inglês: sem sopro.","ཙམ་པ","tsampa","farinha de cevada torrada"],
+[HI,"“ts” com sopro forte.","ཚ་བ","tsawa","quente"],
+[LO,"Como o dz de “kids” em inglês, em tom grave.","ཛམ་བུ་གླིང","dzambuling","o nosso mundo (Jambudvipa)"],
+[LO,"Como o w de “water” em inglês.","ཝ","wa","raposa"],
+[LO,"O x de “xícara”, em tom grave.","ཞི་བ","shiwa","paz"],
+[LO,"O s de “sapo”, em tom grave.","ཟས","sä","comida"],
+[LO,"Vogal “a” pura em tom grave; quase não tem som de consoante.","འོད","ö","luz"],
+[LO,"Como “iate”, ou o y de “yes” em inglês.","ཡི་གེ","yige","letra"],
+[LO,"O r de “caro”, nunca o r forte de “rato”.","རི","ri","montanha"],
+[LO,"O l de “lua”.","ལམ","lam","caminho"],
+[HI,"Como “xícara”, ou o sh de “she” em inglês, em tom agudo.","ཤེས་རབ","sherab","sabedoria"],
+[HI,"O s de “sapo”, em tom agudo.","སེམས","sem","mente"],
+[HI,"Como o h de “house” em inglês: soprado, nunca o r carioca.","ཧ་ཅང","hachang","muito"],
+[HI,"O “a” de “casa”, em tom agudo. É a base para escrever vogais soltas.","ཨ་མ","ama","mãe"]];
+
+const H="Cabeçalho: traço horizontal no topo, da esquerda para a direita.";
+const OMB="Ombro: traço curto que desce do lado esquerdo do cabeçalho, curvando um pouco para a esquerda.";
+const O={
+0:[H,"Traço da esquerda: desce do cabeçalho curvando para a esquerda, como um dente.","Traço do meio: desce reto do cabeçalho, curto.","Haste da direita: desce do cabeçalho, longa, bem abaixo do resto da letra."],
+1:[H,"Haste esquerda longa, de cima para baixo.","Traço curto descendo por dentro, logo à direita da haste.","Diagonal que sai desse traço e desce para a direita, engrossando.","Lado direito: desce do fim do cabeçalho e fecha a forma."],
+2:[H,OMB,"Diagonal que sai da ponta do ombro e desce para a direita.","Traço do meio: desce do cabeçalho até encontrar a diagonal.","Haste longa à direita, descendo abaixo do resto."],
+3:[H,OMB,"Diagonal que sai da ponta do ombro e desce para a direita. É a base da letra."],
+4:[H,"Pequeno gancho logo abaixo do cabeçalho, voltando para a esquerda.","Curva que desce pela esquerda e segue para a direita, formando a parte de baixo.","Bojo do lado direito: sobe e fecha a curva."],
+5:[H,"Primeira volta: desce do cabeçalho e fecha um círculo à esquerda.","Segunda volta, à direita da primeira, fechando outro círculo."],
+6:[H,OMB,"Diagonal que sai da ponta do ombro e desce para a direita.","Traço horizontal do meio, da esquerda para a direita."],
+7:[H,"Traço curto e curvo descendo do lado esquerdo.","Arco que sai do topo e desce pelo lado direito.","Pequena volta no meio, curvando para a esquerda.","Cauda: do lado direito, desce em curva longa e termina embaixo, à esquerda."],
+8:[H,OMB,"Lado direito: desce do fim do cabeçalho em curva e continua longo até embaixo, terminando à esquerda."],
+9:[H,"Traço curvo no meio da letra, abrindo para a direita.","Traço que desce curvando para a esquerda, logo abaixo.","Diagonal da base, descendo para a direita.","Haste direita: desce do cabeçalho e fecha a forma."],
+10:[H,OMB,"Lado direito: desce do fim do cabeçalho em curva e segue longo até embaixo."],
+11:[H,"Traço curto descendo do meio do cabeçalho.","Haste longa: desce do cabeçalho até embaixo, junto ao traço anterior.","Volta: sai da haste, faz um laço para a direita e sobe até o cabeçalho."],
+12:[H,OMB,"Diagonal da base: sai da ponta do ombro e desce para a direita.","Haste direita: desce do cabeçalho até encontrar a base."],
+13:["Escreva um པ completo (cabeçalho, ombro, base e haste direita).","Traço extra: sai do canto superior direito, por dentro, e desce em diagonal para a esquerda."],
+14:[H,"O corpo segue a mesma sequência do པ: ombro, base e haste direita, formando uma caixa fechada."],
+15:[H,"Traço curto descendo do cabeçalho.","Diagonal descendo para a direita.","Volta: laço por baixo, à esquerda, subindo de volta.","Haste direita, de cima para baixo."],
+16:["Escreva o ཅ inteiro (cabeçalho, gancho, curva de baixo e bojo).","Marca no topo direito: traço curto acima do cabeçalho, subindo em curva para a direita."],
+17:["Escreva o ཆ inteiro (cabeçalho e as duas voltas).","Marca no topo direito, como no ཙ."],
+18:["Escreva o ཇ inteiro (cabeçalho, ombro, diagonal e traço do meio).","Marca no topo direito, como no ཙ."],
+19:[H,"Traço curto e curvo à esquerda.","Arco que sai do topo e desce pelo lado direito.","Traço de baixo, da esquerda para a direita.","Marca no topo direito, como no ཙ.","Por fim, o corpo inferior, em forma de caixa."],
+20:[H,"Traço curvo descendo pelo lado esquerdo.","Arco que sai do topo e desce pelo lado direito.","Haste longa à direita, descendo até embaixo.","Volta no meio, curvando para a esquerda."],
+21:[H,"Lado direito: desce do fim do cabeçalho.","Base: traço de baixo, da esquerda para a direita, até encontrar a haste.","Traço do meio, da esquerda para a direita."],
+22:[H,"Curva descendo pelo lado esquerdo.","Arco que sai do topo e desce pelo lado direito.","Base: traço de baixo indo para a direita."],
+23:["Esta letra não começa pelo cabeçalho separado. Primeiro traço: o topo e o lado esquerdo juntos, descendo em curva.","Segundo traço: um arco em forma de U, à direita do primeiro.","Cauda que desce em diagonal para a direita.","Haste direita, de cima para baixo."],
+24:[H,"Traço curto descendo do cabeçalho.","Diagonal da base, descendo para a direita."],
+25:[H,"Curva descendo pelo lado esquerdo.","Arco que sai do topo e desce pelo lado direito.","Diagonal da base, saindo para a direita.","Haste direita, de cima para baixo."],
+26:["Esta letra começa por baixo. Primeiro traço: o pé esquerdo, uma diagonal curta descendo para a direita.","Cabeçalho: sobe do pé pelo lado esquerdo e segue pelo topo, para a direita.","Volta no meio: um pequeno círculo.","Haste longa à direita, de cima para baixo."],
+27:[H,OMB,"Diagonal que sai da ponta do ombro e desce para a direita.","Segunda diagonal, no meio, descendo para a direita.","Haste direita, de cima para baixo."],
+28:[H,OMB,"Diagonal curta saindo da ponta do ombro.","Lado direito: desce do fim do cabeçalho em curva e segue longo até embaixo."],
+29:["Esta letra começa pelo lado esquerdo: uma curva que desce e vira para a direita embaixo.","Cabeçalho, da esquerda para a direita.","Traço curvo no meio, descendo.","Diagonal descendo para a direita.","Haste direita, de cima para baixo."]};
+const WY=["ka ba","kha","gangs","nga","ci","chu","ja","nyi ma","ting nge 'dzin","thugs rje","da lta","nam mkha'","pad ma","pha ma","bu","ma","tsam pa","tsha ba","dzam bu gling","wa","zhi ba","zas","'od","yi ge","ri","lam","shes rab","sems","ha cang","a ma"];
+const AM=["Como o k de “casa”, ou de “skate” em inglês: sem sopro.","Como o k de “kite” em inglês: com sopro forte.","O g de “gato”, sonoro.","O “ng” de “sing” em inglês, mas no começo da sílaba.",
+"Como “tchau”, sem sopro.","Como o ch de “chair” em inglês: com sopro forte.","O dj de “jeans”, sonoro.","O “nh” de “ninho”.",
+"Como o t de “tatu”, ou de “stop” em inglês: sem sopro.","Como o t de “top” em inglês: com sopro forte.","O d de “dado”, sonoro.","O n de “nada”.",
+"Como o p de “pato”, ou de “spin” em inglês: sem sopro.","Como o p de “pin” em inglês: com sopro forte.","O b de “bala”, sonoro.","O m de “mar”.",
+"Como o ts de “cats” em inglês: sem sopro.","“ts” com sopro forte.","O dz de “kids” em inglês, sonoro.","Como o w de “water” em inglês.",
+"O j de “já”, sonoro.","O z de “zebra”, sonoro.","Vogal “a” pura.","Como “iate”, ou o y de “yes” em inglês.",
+"O r de “caro”.","O l de “lua”.","Como “xícara”, ou o sh de “she” em inglês.","O s de “sapo”.",
+"Como o h de “house” em inglês: soprado.","O “a” de “casa”. É a base para escrever vogais soltas."];
+let dial="amdo";
+const CONS="Escreva a letra de cima inteira, depois a de baixo, colada nela.";
+const LES=[
+{name:"Consoantes",intro:"As 30 consoantes. Cada uma já carrega o som “a”."},
+{name:"Vogais",intro:"Toda consoante já tem o “a”. As outras quatro vogais são marcas: ི ེ ོ ficam em cima e ུ fica embaixo. Escreva a consoante inteira e só depois a vogal. Uma vogal sozinha se escreve sobre ཨ.",items:[
+{g:"ཨི",r:"i",cat:"gigu",s:"O i de “vida”.",w:"ཉི་མ",wp:"nyima",wy:"nyi ma",wm:"sol",o:["Escreva a consoante (aqui, ཨ).","Gigu: começa à esquerda, sobe em curva e desce para a direita, como um gancho por cima da letra."]},
+{g:"ཨུ",r:"u",cat:"zhabkyu",s:"O u de “uva”.",w:"ཆུ",wp:"chu",wy:"chu",wm:"água",o:["Escreva a consoante (aqui, ཨ).","Zhabkyu: embaixo da letra, desce, curva para a direita e termina num gancho."]},
+{g:"ཨེ",r:"e",cat:"drengbu",s:"O e fechado de “ipê”.",w:"མེ",wp:"me",wy:"me",wm:"fogo",o:["Escreva a consoante (aqui, ཨ).","Drengbu: traço curto acima da letra, descendo em diagonal da esquerda para a direita."]},
+{g:"ཨོ",r:"o",cat:"naro",s:"O o fechado de “ovo”.",w:"ལོ",wp:"lo",wy:"lo",wm:"ano",o:["Escreva a consoante (aqui, ཨ).","Naro: traço curvo acima da letra, da esquerda para a direita."]},
+{g:"ཀི",r:"ki",cat:"ka + i",s:"ཀ (ka) com gigu: “ki”.",w:"ཀི",wp:"ki",wy:"ki",wm:""},
+{g:"ཀུ",r:"ku",cat:"ka + u",s:"ཀ (ka) com zhabkyu: “ku”.",w:"སྐུ",wp:"ku",wy:"sku",wm:"corpo (honorífico)"},
+{g:"ཀེ",r:"ke",cat:"ka + e",s:"ཀ (ka) com drengbu: “ke”.",w:"ཀེ",wp:"ke",wy:"ke",wm:""},
+{g:"ཀོ",r:"ko",cat:"ka + o",s:"ཀ (ka) com naro: “ko”.",w:"ཀོ",wp:"ko",wy:"ko",wm:""},
+{g:"རི",r:"ri",cat:"ra + i",s:"ར (ra) com gigu.",w:"རི",wp:"ri",wy:"ri",wm:"montanha"},
+{g:"བུ",r:"bu",cat:"ba + u",s:"བ (ba) com zhabkyu.",w:"བུ",wp:"bu",wy:"bu",wm:"filho"}]},
+{name:"Sobrescritas",intro:"Três letras podem ir em cima de outra: ར (ra-go), ལ (la-go) e ས (sa-go). A de cima encolhe e se apoia sobre a de baixo; o ར perde a perna e vira um traço curto. Em Lhasa a letra de cima fica muda. No Amdo ela costuma deixar um som antes da consoante. Ouça o seu professor.",items:[
+{g:"རྐ",r:"rka",cat:"ra-go",s:"ra em cima de ka.",w:"རྐང་པ",wp:"kangpa",wy:"rkang pa",wm:"pé"},
+{g:"རྟ",r:"rta",cat:"ra-go",s:"ra em cima de ta.",w:"རྟ",wp:"ta",wy:"rta",wm:"cavalo"},
+{g:"རྡ",r:"rda",cat:"ra-go",s:"ra em cima de da.",w:"རྡོ་རྗེ",wp:"dorje",wy:"rdo rje",wm:"vajra"},
+{g:"རྣ",r:"rna",cat:"ra-go",s:"ra em cima de na.",w:"རྣམ་ཤེས",wp:"namshé",wy:"rnam shes",wm:"consciência"},
+{g:"རྨ",r:"rma",cat:"ra-go",s:"ra em cima de ma.",w:"རྨི་ལམ",wp:"milam",wy:"rmi lam",wm:"sonho"},
+{g:"རྩ",r:"rtsa",cat:"ra-go",s:"ra em cima de tsa.",w:"རྩ",wp:"tsa",wy:"rtsa",wm:"canal sutil, raiz"},
+{g:"ལྷ",r:"lha",cat:"la-go",s:"Exceção: aqui o ལ soa, e o ཧ o deixa soprado, como um “l” com ar.",w:"ལྷ",wp:"lha",wy:"lha",wm:"divindade"},
+{g:"ལྟ",r:"lta",cat:"la-go",s:"la em cima de ta.",w:"ལྟ་བ",wp:"tawa",wy:"lta ba",wm:"visão"},
+{g:"ལྕ",r:"lca",cat:"la-go",s:"la em cima de ca.",w:"ལྕགས",wp:"chak",wy:"lcags",wm:"ferro"},
+{g:"སྐ",r:"ska",cat:"sa-go",s:"sa em cima de ka.",w:"སྐུ",wp:"ku",wy:"sku",wm:"corpo (honorífico)"},
+{g:"སྔ",r:"snga",cat:"sa-go",s:"sa em cima de nga.",w:"སྔགས",wp:"ngak",wy:"sngags",wm:"mantra"},
+{g:"སྟ",r:"sta",cat:"sa-go",s:"sa em cima de ta.",w:"སྟོང་པ་ཉིད",wp:"tongpanyi",wy:"stong pa nyid",wm:"vacuidade"},
+{g:"སྨ",r:"sma",cat:"sa-go",s:"sa em cima de ma.",w:"སྨན",wp:"men",wy:"sman",wm:"remédio"}]},
+{name:"Subscritas",intro:"Quatro letras podem ir embaixo de outra: ཡ (ya-ta ྱ), ར (ra-ta ྲ), ལ (la-ta ླ) e ཝ (wa-zur ྭ). Algumas mudam o som da letra de cima. As mudanças descritas são as de Lhasa; no Amdo são parecidas, mas confirme com o seu professor.",items:[
+{g:"ཀྱ",r:"kya",cat:"ya-ta",s:"k + y: “kia”.",w:"དཀྱིལ་འཁོར",wp:"kyilkhor",wy:"dkyil 'khor",wm:"mandala"},
+{g:"ཁྱ",r:"khya",cat:"ya-ta",s:"k com sopro + y: “khia”.",w:"ཁྱི",wp:"khyi",wy:"khyi",wm:"cachorro"},
+{g:"ཕྱ",r:"phya",cat:"ya-ta",s:"p + y vira “tch” com sopro.",w:"ཕྱག",wp:"chak",wy:"phyag",wm:"mão (honorífico), prostração"},
+{g:"བྱ",r:"bya",cat:"ya-ta",s:"b + y vira “dj” (em Lhasa, “tch” grave).",w:"བྱང་ཆུབ",wp:"jangchup",wy:"byang chub",wm:"iluminação (bodhi)"},
+{g:"གྲ",r:"gra",cat:"ra-ta",s:"g + r vira um “dr” com a língua enrolada.",w:"གྲོགས་པོ",wp:"drokpo",wy:"grogs po",wm:"amigo"},
+{g:"ཁྲ",r:"khra",cat:"ra-ta",s:"k com sopro + r vira “tr” com sopro.",w:"ཁྲག",wp:"trhak",wy:"khrag",wm:"sangue"},
+{g:"སྤྲ",r:"spra",cat:"sa-go + ra-ta",s:"Três andares: s em cima, p no meio, r embaixo. Soa “tr”.",w:"སྤྲུལ་སྐུ",wp:"trulku",wy:"sprul sku",wm:"tulku"},
+{g:"བླ",r:"bla",cat:"la-ta",s:"Com la embaixo, a letra de cima some e fica só o “l”.",w:"བླ་མ",wp:"lama",wy:"bla ma",wm:"lama, mestre"},
+{g:"རླ",r:"rla",cat:"la-ta",s:"Também soa só “l”.",w:"རླུང",wp:"lung",wy:"rlung",wm:"vento, energia sutil"},
+{g:"ཟླ",r:"zla",cat:"la-ta",s:"Exceção: ཟླ soa “d”.",w:"ཟླ་བ",wp:"dawa",wy:"zla ba",wm:"lua"},
+{g:"ཚྭ",r:"tshwa",cat:"wa-zur",s:"O wa-zur quase sempre é mudo; só distingue palavras na escrita.",w:"ཚྭ",wp:"tsa",wy:"tshwa",wm:"sal"}]},
+{name:"Om Mani",group:"Mantras",intro:"ཨོཾ་མ་ཎི་པདྨེ་ཧཱུྃ, sílaba por sílaba. Mantras são sânscrito escrito em letras tibetanas, por isso trazem marcas que não aparecem no tibetano comum.",items:[
+{g:"ཨོཾ",r:"om",cat:"ཨ + naro + nasal",s:"ཨ com naro (ོ) dá “o”. A marca ཾ em cima fecha a sílaba com “m”.",w:"ཨོཾ",wp:"om",wy:"oṃ",wm:"",o:["Escreva ཨ.","Naro (ོ) em cima.","A marca ཾ por último, sobre o naro."]},
+{g:"མ",r:"ma",cat:"consoante",s:"Só a consoante, com o “a” que já vem nela.",w:"མ",wp:"ma",wy:"ma",wm:""},
+{g:"ཎི",r:"ṇi",cat:"retroflexa + gigu",s:"ཎ é um ན espelhado: o “n” retroflexo do sânscrito, com a ponta da língua enrolada para trás. Com gigu, “ni”.",w:"ཎི",wp:"ni",wy:"ṇi",wm:"",o:["Escreva ཎ, o ན espelhado.","Gigu (ི) em cima, por último."]},
+{g:"པདྨེ",r:"padme",cat:"empilhamento + drengbu",s:"པ (pa), depois ད com མ embaixo (དྨ) e drengbu (e). Na leitura tibetana costuma soar “peme”.",w:"པདྨེ",wp:"peme",wy:"padme",wm:"",o:["Escreva པ.","Escreva ད e, colado embaixo, um མ menor.","Drengbu (ེ) por cima do ད."]},
+{g:"ཧཱུྃ",r:"hūṃ",cat:"vogal longa + nasal",s:"ཧ (h), o ཱ que alonga a vogal, zhabkyu (u) e, em cima, ྃ, a nasal final. Os tibetanos dizem “hung”.",w:"ཧཱུྃ",wp:"hung",wy:"hūṃ",wm:"",o:["Escreva ཧ.","Embaixo, o pequeno ཱ que alonga a vogal.","Zhabkyu (ུ) abaixo dele.","Em cima, a lua com ponto (ྃ)."]},
+{g:"ཨོཾ་མ་ཎི་པདྨེ་ཧཱུྃ",r:"oṃ maṇi padme hūṃ",cat:"mantra completo",s:"O mantra de Avalokiteshvara (Chenrezig). Os pontos (tsheg) separam as sílabas.",w:"ཨོཾ་མ་ཎི་པདྨེ་ཧཱུྃ",wp:"om mani peme hung",wy:"oṃ maṇi padme hūṃ",wm:"",o:["Escreva sílaba por sílaba, da esquerda para a direita.","Depois de cada sílaba, o tsheg (་) na altura do cabeçalho."]}]},
+{name:"Guru",group:"Mantras",intro:"ཨོཾ་ཨཱཿ་ཧཱུྃ་བཛྲ་གུ་རུ་པདྨ་སིདྡྷི་ཧཱུྃ། O mantra Vajra Guru, de Guru Rinpoche (Padmasambhava). Também é sânscrito em letras tibetanas, então traz empilhamentos e marcas que o tibetano comum não usa.",items:[
+{g:"ཨོཾ",r:"om",cat:"ཨ + naro + nasal",s:"Como no Om Mani: ཨ com naro (ོ) dá “o”, e a marca ཾ fecha com “m”.",w:"ཨོཾ",wp:"om",wy:"oṃ",wm:"",o:["Escreva ཨ.","Naro (ོ) em cima.","A marca ཾ por último, sobre o naro."]},
+{g:"ཨཱཿ",r:"āḥ",cat:"vogal longa + visarga",s:"ཨ com o ཱ que alonga a vogal, e o visarga ཿ (dois pontinhos à direita), que deixa um sopro no fim. Soa “ah”.",w:"ཨཱཿ",wp:"ah",wy:"āḥ",wm:"",o:["Escreva ཨ.","Embaixo, o pequeno ཱ que alonga a vogal.","À direita, os dois pontos do visarga (ཿ), um em cima do outro."]},
+{g:"ཧཱུྃ",r:"hūṃ",cat:"vogal longa + nasal",s:"Como no Om Mani: ཧ, o ཱ longo, zhabkyu e a lua com ponto (ྃ). Os tibetanos dizem “hung”.",w:"ཧཱུྃ",wp:"hung",wy:"hūṃ",wm:"",o:["Escreva ཧ.","Embaixo, o pequeno ཱ.","Zhabkyu (ུ) abaixo dele.","Em cima, a lua com ponto (ྃ)."]},
+{g:"བཛྲ",r:"vajra",cat:"empilhamento",s:"བ (ba), depois ཛ (dza) com ra-ta (ྲ) colado embaixo. Em sânscrito “vajra”; os tibetanos dizem “benza”.",w:"བཛྲ",wp:"benza",wy:"vajra",wm:"vajra, diamante",o:["Escreva བ.","Escreva ཛ, com a marca no alto.","Colado embaixo do ཛ, o ra-ta (ྲ): um traço curto que desce em diagonal."]},
+{g:"གུ",r:"gu",cat:"ga + u",s:"ག (ga) com zhabkyu: “gu”.",w:"གུ",wp:"gu",wy:"gu",wm:""},
+{g:"རུ",r:"ru",cat:"ra + u",s:"ར (ra) com zhabkyu: “ru”. Junto com གུ, “guru”.",w:"གུ་རུ",wp:"guru",wy:"guru",wm:"mestre"},
+{g:"པདྨ",r:"padma",cat:"empilhamento",s:"Igual ao padme do Om Mani, sem o drengbu: པ, depois ད com མ embaixo. Soa “pema”.",w:"པདྨ",wp:"pema",wy:"padma",wm:"lótus",o:["Escreva པ.","Escreva ད e, colado embaixo, um མ menor."]},
+{g:"སིདྡྷི",r:"siddhi",cat:"empilhamento triplo",s:"ས com gigu (si), depois ད com outro ད e um ཧ pequeno empilhados embaixo (དྡྷ), e gigu. Soa “siddhi”.",w:"སིདྡྷི",wp:"siddhi",wy:"siddhi",wm:"realização",o:["Escreva ས e o gigu (ི) em cima.","Escreva ད.","Embaixo dele, um ད menor.","Embaixo deste, o ཧ pequeno (ྷ).","Gigu (ི) por cima do ད de cima."]},
+{g:"ཧཱུྃ",r:"hūṃ",cat:"vogal longa + nasal",s:"O mesmo hung do começo, agora fechando o mantra.",w:"ཧཱུྃ",wp:"hung",wy:"hūṃ",wm:""},
+{g:"ཨོཾ་ཨཱཿ་ཧཱུྃ་བཛྲ་གུ་རུ་པདྨ་སིདྡྷི་ཧཱུྃ།",r:"oṃ āḥ hūṃ vajra guru padma siddhi hūṃ",cat:"mantra completo",s:"O mantra de Guru Rinpoche. Os pontos (tsheg) separam as sílabas; o traço vertical (shad, །) fecha a frase.",w:"ཨོཾ་ཨཱཿ་ཧཱུྃ་བཛྲ་གུ་རུ་པདྨ་སིདྡྷི་ཧཱུྃ།",wp:"om ah hung benza guru pema siddhi hung",wy:"oṃ āḥ hūṃ vajra guru padma siddhi hūṃ",wm:"",o:["Escreva sílaba por sílaba, da esquerda para a direita.","Depois de cada sílaba, o tsheg (་) na altura do cabeçalho.","No fim, o shad (།): um traço vertical que desce do cabeçalho."]}]},
+{name:"Vajrakilaya",group:"Mantras",intro:"ཨོཾ་བཛྲ་ཀཱི་ལི་ཀཱི་ལ་ཡ་སརྦ་བིགྷྣཱན་བཾ་ཧཱུྃ་ཕཊ྄ O mantra de Vajrakilaya (Dorje Phurba). Há pequenas variações de grafia e de recitação entre linhagens; confira com o texto de prática do seu Rinpoche.",items:[
+{g:"ཨོཾ",r:"om",cat:"ཨ + naro + nasal",s:"ཨ com naro (ོ) e a marca ཾ: “om”.",w:"ཨོཾ",wp:"om",wy:"oṃ",wm:"",o:["Escreva ཨ.","Naro (ོ) em cima.","A marca ཾ por último, sobre o naro."]},
+{g:"བཛྲ",r:"vajra",cat:"empilhamento",s:"བ (ba), depois ཛ com ra-ta (ྲ) embaixo. Diz-se “benza”.",w:"བཛྲ",wp:"benza",wy:"vajra",wm:"vajra",o:["Escreva བ.","Escreva ཛ, com a marca no alto.","Colado embaixo do ཛ, o ra-ta (ྲ)."]},
+{g:"ཀཱི",r:"kī",cat:"vogal longa",s:"ཀ com o ཱ embaixo e o gigu em cima: o “i” longo do sânscrito. Soa “ki”.",w:"ཀཱི",wp:"ki",wy:"kī",wm:"",o:["Escreva ཀ.","Embaixo, o pequeno ཱ.","Gigu (ི) em cima, por último."]},
+{g:"ལི",r:"li",cat:"la + i",s:"ལ (la) com gigu: “li”. Com ཀཱི, “kili”.",w:"ཀཱི་ལི",wp:"kili",wy:"kīli",wm:""},
+{g:"ཀཱི་ལ་ཡ",r:"kīlaya",cat:"três sílabas",s:"ཀཱི, ལ e ཡ: “kilaya”, a adaga ritual (phurba).",w:"ཀཱི་ལ་ཡ",wp:"kilaya",wy:"kīlaya",wm:"kila, phurba",o:["Escreva ཀཱི.","Tsheg, depois ལ.","Tsheg, depois ཡ."]},
+{g:"སརྦ",r:"sarva",cat:"ra-go",s:"ས (sa), depois ར em cima de བ (རྦ), como nas sobrescritas. Em sânscrito “sarva”, todos; recita-se “sarwa”.",w:"སརྦ",wp:"sarwa",wy:"sarva",wm:"todos",o:["Escreva ས.","Escreva o ra-go: um ར encolhido, sem a perna.","Embaixo dele, o བ inteiro."]},
+{g:"བིགྷྣཱན",r:"vighnān",cat:"empilhamento triplo",s:"བི (bi), depois ག com ཧ e ན pequenos embaixo e o ཱ longo (གྷྣཱ), e por fim ན. “Obstáculos”; recita-se “bighanen”.",w:"བིགྷྣཱན",wp:"bighanen",wy:"vighnān",wm:"obstáculos",o:["Escreva བ e o gigu (ི) em cima.","Escreva ག.","Embaixo, o ཧ pequeno (ྷ).","Embaixo dele, o ན pequeno (ྣ) e o ཱ.","Por fim, ན inteiro à direita."]},
+{g:"བཾ",r:"baṃ",cat:"ba + nasal",s:"བ com a marca ཾ: “bam”.",w:"བཾ",wp:"bam",wy:"baṃ",wm:"",o:["Escreva བ.","A marca ཾ em cima."]},
+{g:"ཧཱུྃ",r:"hūṃ",cat:"vogal longa + nasal",s:"O mesmo hung dos outros mantras.",w:"ཧཱུྃ",wp:"hung",wy:"hūṃ",wm:""},
+{g:"ཕཊ྄",r:"phaṭ",cat:"retroflexa + virama",s:"ཕ (pha) e ཊ, o ཏ espelhado (t retroflexo), com o tracinho ྄ embaixo, que tira a vogal. Recita-se “phet” ou “phat”.",w:"ཕཊ྄",wp:"phet",wy:"phaṭ",wm:"",o:["Escreva ཕ.","Escreva ཊ, o ཏ espelhado.","Embaixo do ཊ, o tracinho ྄ em diagonal."]},
+{g:"ཨོཾ་བཛྲ་ཀཱི་ལི་ཀཱི་ལ་ཡ་སརྦ་བིགྷྣཱན་བཾ་ཧཱུྃ་ཕཊ྄",r:"oṃ vajra kīli kīlaya sarva vighnān baṃ hūṃ phaṭ",cat:"mantra completo",s:"O mantra de Vajrakilaya, sílaba por sílaba, com o tsheg entre elas.",w:"ཨོཾ་བཛྲ་ཀཱི་ལི་ཀཱི་ལ་ཡ་སརྦ་བིགྷྣཱན་བཾ་ཧཱུྃ་ཕཊ྄",wp:"om benza kili kilaya sarwa bighanen bam hung phet",wy:"oṃ vajra kīli kīlaya sarva vighnān baṃ hūṃ phaṭ",wm:"",o:["Escreva sílaba por sílaba, da esquerda para a direita.","Depois de cada sílaba, o tsheg (་) na altura do cabeçalho."]}]},
+{name:"Cards",cards:true,intro:"Escolha as linhas e lições que quer revisar. Com Vogais ligada, cada consoante escolhida aparece também com i, u, e, o; sem consoante escolhida, entram as 10 vogais básicas. Palavras traz só palavras escritas com as consoantes escolhidas (sem letras empilhadas). Toque no card para virar. O que você errar volta para o baralho logo depois."}];
+let les=0;
+const W=[["ka ba", "kawa", "pilar"], ["kha", "kha", "boca"], ["kha ba", "khawa", "neve"], ["khang pa", "khangpa", "casa"], ["kha lag", "khalak", "comida"], ["kha btags", "khatak", "khata"], ["nga", "nga", "eu"], ["ngag", "ngak", "fala"], ["ngo bo", "ngowo", "essência"], ["ngang pa", "ngangpa", "ganso"], ["ga re", "kare", "o quê?"], ["dga' ba", "gawa", "alegria"], ["gos", "gö", "roupa"], ["gang ga", "ganga", "rio Ganges"], ["mgo", "go", "cabeça"], ["dgu", "gu", "nove"], ["dge ba", "gewa", "virtude"], ["dge bshes", "geshe", "geshe, mestre erudito"], ["gcig", "chik", "um"], ["bcu", "chu", "dez"], ["cog tse", "choktse", "mesa"], ["chu", "chu", "água"], ["cha", "cha", "par"], ["chang", "chang", "cerveja de cevada"], ["chos", "chö", "dharma"], ["mchod pa", "chöpa", "oferenda"], ["ja", "ja", "chá"], ["'ja'", "ja", "arco-íris"], ["'jam dpal", "jampel", "Manjushri"], ["nya", "nya", "peixe"], ["nyi ma", "nyima", "sol"], ["nyin mo", "nyinmo", "dia"], ["gnyis", "nyi", "dois"], ["nyams len", "nyamlen", "prática"], ["gtam", "tam", "conversa"], ["gtor ma", "torma", "torma"], ["gter ma", "terma", "tesouro escondido"], ["tha ma", "tama", "fim, último"], ["thag pa", "takpa", "corda"], ["thang", "tang", "planície"], ["thugs", "tuk", "mente (honorífico)"], ["da", "da", "agora"], ["dus", "dü", "tempo"], ["dus 'khor", "dükhor", "Kalachakra"], ["dug", "duk", "veneno"], ["dung", "dung", "concha"], ["dad pa", "däpa", "fé"], ["bde ba", "dewa", "felicidade"], ["bdun", "dün", "sete"], ["'dod pa", "döpa", "desejo"], ["a mdo", "amdo", "Amdo"], ["na", "na", "doente"], ["nags", "nak", "floresta"], ["nub", "nup", "oeste"], ["nang", "nang", "dentro"], ["nam", "nam", "quando"], ["gnas", "nä", "lugar"], ["nag po", "nakpo", "preto"], ["nam mkha'", "namkha", "céu, espaço"], ["pad ma", "pema", "lótus"], ["dpe cha", "pecha", "texto, livro"], ["dpa' bo", "pawo", "herói"], ["dpal", "pel", "glória"], ["pa sangs", "pasang", "sexta-feira"], ["pha ma", "pama", "pai e mãe"], ["phug pa", "phukpa", "caverna"], ["phur pa", "phurpa", "phurba, adaga ritual"], ["'phags pa", "phakpa", "nobre"], ["bu", "bu", "filho"], ["bu mo", "bumo", "filha, menina"], ["ba lang", "balang", "vaca, boi"], ["bum pa", "bumpa", "vaso"], ["bod", "pö", "Tibete"], ["bod yig", "pöyik", "escrita tibetana"], ["dbang", "wang", "poder, iniciação"], ["'bu", "bu", "inseto"], ["bsam pa", "sampa", "pensamento"], ["ma", "ma", "mãe"], ["mi", "mi", "pessoa"], ["me", "me", "fogo"], ["mig", "mik", "olho"], ["me tog", "metok", "flor"], ["me long", "melong", "espelho"], ["mar", "mar", "manteiga"], ["dmar po", "marpo", "vermelho"], ["mkhan po", "khenpo", "khenpo, abade"], ["tsam pa", "tsampa", "farinha de cevada torrada"], ["tsan dan", "tsenden", "sândalo"], ["tsha ba", "tsawa", "quente"], ["tshe", "tse", "vida"], ["tshig", "tsik", "palavra"], ["mtsho", "tso", "lago"], ["tshong", "tsong", "comércio"], ["tshe dpag med", "tsepakme", "Amitayus"], ["mdzod", "dzö", "tesouro"], ["wa", "wa", "raposa"], ["zhi ba", "shiwa", "paz"], ["zhing", "shing", "campo"], ["zhabs", "shap", "pés (honorífico)"], ["zhal", "shel", "rosto (honorífico)"], ["bzhi", "shi", "quatro"], ["zas", "sä", "comida"], ["gzugs", "suk", "forma"], ["'od", "ö", "luz"], ["'od dpag med", "öpakme", "Amitabha"], ["'o ma", "oma", "leite"], ["'khor lo", "khorlo", "roda"], ["yi ge", "yige", "letra"], ["yul", "yül", "país, região"], ["yab", "yap", "pai (honorífico)"], ["yum", "yum", "mãe (honorífico)"], ["ri", "ri", "montanha"], ["ri bo", "riwo", "montanha"], ["ri dags", "ridak", "animal selvagem"], ["rang", "rang", "si mesmo"], ["ras", "rä", "tecido de algodão"], ["rin po che", "rinpoche", "precioso"], ["lam", "lam", "caminho"], ["lag pa", "lakpa", "mão"], ["lus", "lü", "corpo"], ["lo", "lo", "ano"], ["lug", "luk", "ovelha"], ["shing", "shing", "árvore, madeira"], ["sha", "sha", "carne"], ["sha ba", "shawa", "cervo"], ["shes rab", "sherab", "sabedoria"], ["sems", "sem", "mente"], ["sems can", "semchen", "ser senciente"], ["sa", "sa", "terra"], ["gser", "ser", "ouro"], ["ser po", "serpo", "amarelo"], ["dkar po", "karpo", "branco"], ["gsum", "sum", "três"], ["ha cang", "hachang", "muito"], ["hor", "hor", "mongóis"], ["a ma", "ama", "mãe"], ["a pha", "apa", "pai"], ["a ru ra", "arura", "mirobálano (planta medicinal)"], ["ka ra", "kara", "açúcar"], ["dngul", "ngül", "prata"]];
+const CM=L.map(([g,r],i)=>[r==="a"?"":r==="'a"?"'":r.slice(0,-1),g,i]).filter(x=>x[0]).sort((a,b)=>b[0].length-a[0].length);
+const VM={a:"",i:"ི",u:"ུ",e:"ེ",o:"ོ"};
+function wy2tib(wy){const used=new Set();const out=wy.split(" ").map(syl=>{let t="",k=0,hasV=false;
+  while(k<syl.length){if(VM[syl[k]]!==undefined){if(!t.length){t+="ཨ";used.add(29);}t+=VM[syl[k]];hasV=true;k++;continue;}
+    const m=CM.find(([r])=>syl.startsWith(r,k));if(!m)return "?";t+=m[1];used.add(m[2]);k+=m[0].length;}
+  return t;}).join("་");return{t:out,used};}
+const WD=W.map(([wy,pr,mn])=>{const {t,used}=wy2tib(wy);return{wy,pr,mn,t,used:[...used]};});
+const V=[["ི","i","gigu"],["ུ","u","zhabkyu"],["ེ","e","drengbu"],["ོ","o","naro"]];
+function itemAt(l,i,j){if(l==="w"){const w=WD[i],am=dial==="amdo";
+    return{g:w.t,r:am?w.wy:w.pr,lh:`<b>${w.mn}</b> · Wylie: ${w.wy}`,am:`<b>${w.mn}</b> · leitura tibetana central: ${w.pr}`,w:w.t,wp:"",wy:"",wm:""};}
+  if(l==="v"){const [m,v,n]=V[i],[g,r]=L[j],ro=r.slice(0,-1)+v,tx=`${g} (${r}) com ${n}: “${ro}”.`;
+    return{g:g+m,r:ro,t:P[j][0],lh:tx,am:tx,w:g+m,wp:ro,wy:ro,wm:""};}
+  if(l===0){const [t,txt,w,wp,wm]=P[i];return{g:L[i][0],r:L[i][1],t,lh:txt,am:AM[i],w,wp,wy:WY[i],wm,o:O[i],src:true};}
+  const it=LES[l].items[i];return{...it,lh:it.s,am:it.s,o:it.o||[l===1?"Escreva a consoante inteira, depois a vogal.":CONS]};}
+function item(){return itemAt(les,idx);}
+function count(){return les===0?L.length:LES[les].items.length;}
+const COLS=["não aspirada","aspirada","sonora (tom baixo)","nasal"];
+const $=id=>document.getElementById(id);
+const store={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},
+  set(k,v){try{localStorage.setItem(k,JSON.stringify(v));if(["cardSel","cardFace","dial"].includes(k))localStorage.setItem("prefsAt",String(Date.now()))}catch(e){}}};
+let idx=0, done=new Set(store.get("done",[]).map(x=>typeof x==="number"?"0:"+x:x)), showGuide=true;
+let strokes=[], cur=null, penSeen=false;
+const guide=$("guide"), ink=$("ink"), gctx=guide.getContext("2d"), ictx=ink.getContext("2d");
+const tok=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+
+function buildTable(){
+  const t=$("table"); t.innerHTML="";
+  t.classList.toggle("free",les!==0);
+  const list=les===0?L.map(([g,r])=>({g,r})):LES[les].items;
+  list.forEach(({g,r},i)=>{const b=document.createElement("button");b.type="button";b.className="cell"+(done.has(les+":"+i)?" done":"");
+    b.id="c"+i;b.innerHTML=`<span class="g">${g}</span><span class="r">${r}</span>`;
+    if(i===idx)b.setAttribute("aria-current","true");b.onclick=()=>go(i);t.appendChild(b)});
+}
+function colText(i){if(i<16)return COLS[i%4];return "";}
+function renderPron(){const {t,lh:txt,am,w,wp,wy,wm}=item();
+  syncDial();
+  if(dial==="amdo"){$("curP").innerHTML=am;
+    $("curW").innerHTML=`<span class="lbl">Palavra</span> <span class="wt">${w}</span> <span class="wp">${wy}</span> <span class="wm">${wm}</span>`;}
+  else{$("curP").innerHTML=(t?`<span class="tone ${t}">tom ${t===HI?"agudo":"grave"}</span>`:"")+txt;
+    $("curW").innerHTML=`<span class="lbl">Palavra</span> <span class="wt">${w}</span> <span class="wp">${wp}</span> <span class="wm">${wm}</span>`;}
+  $("curW").hidden=(w===item().g&&!wm);
+  $("dialNote").textContent=dial==="amdo"?"Amdo (incluindo Golok): sem tons; as letras da 3ª coluna e ཞ ཟ soam sonoras. A palavra aparece transliterada letra por letra, que no Amdo fica mais perto da fala. Detalhes de Golok: confirme com o seu professor.":"Lhasa (tibetano central): com tom agudo ou grave; a 3ª coluna perde a sonoridade e soa em tom grave.";}
+function go(i){const n=count();idx=(i+n)%n;store.set("idx"+les,idx);strokes=[];const it=item();
+  $("curG").textContent=it.g;$("curR").textContent=it.r;
+  if(les===0){const row=Math.floor(idx/4)+1,c=colText(idx);$("curC").textContent="linha "+row+(c?" · "+c:"");}else $("curC").textContent=it.cat;
+  const ol=$("curO");ol.innerHTML="";(it.o||[]).forEach(s=>{const li=document.createElement("li");li.textContent=s;ol.appendChild(li);});
+  $("curOn").textContent=it.src?"Fonte: diagramas de Chris Fynn, How to write the Tibetan script. Ao escrever uma sílaba, termine com o tsheg (་) à direita, na altura do cabeçalho.":"";
+  renderPron();
+  buildTable();resetResult();drawGuide();redraw();}
+function size(){const r=ink.getBoundingClientRect(),d=window.devicePixelRatio||1;
+  for(const c of [guide,ink]){c.width=Math.round(r.width*d);c.height=Math.round(r.height*d);}drawGuide();redraw();}
+function glyphLayout(ctx,W){ // font size and baseline so the glyph fits and sits centered
+  const g=item().g;let fs=W*0.62;ctx.font=`${fs}px ${tok("--tib")}`;ctx.textAlign="center";ctx.textBaseline="alphabetic";
+  let m=ctx.measureText(g);const fit=Math.min(1,(W*.84)/(m.width||1),(W*.84)/(((m.actualBoundingBoxAscent||fs*.6)+(m.actualBoundingBoxDescent||fs*.2))||1));
+  if(fit<1){fs*=fit;ctx.font=`${fs}px ${tok("--tib")}`;m=ctx.measureText(g);}
+  const asc=m.actualBoundingBoxAscent||fs*.6,des=m.actualBoundingBoxDescent||fs*.2;
+  const h=asc+des;const base=(W-h)/2+asc;return{fs,base,top:base-asc,bot:base+des};}
+function drawGuide(){if(LES[les].cards)return;const W=guide.width,c=gctx;c.clearRect(0,0,W,W);
+  const lay=glyphLayout(c,W);
+  c.strokeStyle=tok("--line");c.lineWidth=Math.max(1,W/400);c.setLineDash([W/60,W/80]);
+  c.beginPath();c.moveTo(W*.06,lay.top);c.lineTo(W*.94,lay.top);c.stroke();
+  c.setLineDash([]);c.beginPath();c.moveTo(W/2,W*.04);c.lineTo(W/2,W*.96);c.globalAlpha=.4;c.stroke();c.globalAlpha=1;
+  c.fillStyle=tok("--saffron");c.font=`${W*.028}px ${tok("--mono")}`;c.textAlign="left";c.fillText("cabeçalho",W*.06,lay.top-W*.012);
+  if(showGuide){glyphLayout(c,W);c.fillStyle=tok("--ghost");c.fillText(item().g,W/2,lay.base);}
+}
+function lw(p){const W=ink.width;return W*0.022*(p>0&&p<1?0.6+p*0.8:1);}
+function redraw(){const c=ictx,W=ink.width;c.clearRect(0,0,W,W);c.strokeStyle=tok("--ink");c.lineCap="round";c.lineJoin="round";
+  for(const s of strokes.concat(cur?[cur]:[])){for(let i=1;i<s.length;i++){c.lineWidth=lw(s[i].p);c.beginPath();
+    c.moveTo(s[i-1].x*W,s[i-1].y*W);c.lineTo(s[i].x*W,s[i].y*W);c.stroke();}
+    if(s.length===1){c.fillStyle=tok("--ink");c.beginPath();c.arc(s[0].x*W,s[0].y*W,lw(s[0].p)/2,0,7);c.fill();}}}
+function pt(e){const r=ink.getBoundingClientRect();return{x:(e.clientX-r.left)/r.width,y:(e.clientY-r.top)/r.height,p:e.pressure};}
+ink.addEventListener("pointerdown",e=>{if(e.pointerType==="pen")penSeen=true;if(penSeen&&e.pointerType==="touch")return;
+  ink.setPointerCapture(e.pointerId);cur=[pt(e)];redraw();});
+ink.addEventListener("pointermove",e=>{if(!cur)return;const ev=e.getCoalescedEvents?e.getCoalescedEvents():[e];
+  for(const x of ev)cur.push(pt(x));redraw();});
+const end=()=>{if(cur){strokes.push(cur);cur=null;redraw();}};
+ink.addEventListener("pointerup",end);ink.addEventListener("pointercancel",end);
+
+function mask(drawFn,N){const c=document.createElement("canvas");c.width=c.height=N;const x=c.getContext("2d");drawFn(x,N);
+  const d=x.getImageData(0,0,N,N).data,m=new Uint8Array(N*N);for(let i=0;i<N*N;i++)m[i]=d[i*4+3]>60?1:0;return m;}
+function dilate(m,N,r){const o=new Uint8Array(N*N);for(let y=0;y<N;y++)for(let x=0;x<N;x++){if(!m[y*N+x])continue;
+  for(let dy=-r;dy<=r;dy++)for(let dx=-r;dx<=r;dx++){const X=x+dx,Y=y+dy;if(X>=0&&Y>=0&&X<N&&Y<N&&dx*dx+dy*dy<=r*r)o[Y*N+X]=1;}}return o;}
+function evaluate(){
+  if(!strokes.length){$("verdict").textContent="Nada escrito ainda. Trace a letra e toque em Avaliar.";return;}
+  const N=160;
+  const G=mask((c,W)=>{const l=glyphLayout(c,W);c.fillStyle="#000";c.fillText(item().g,W/2,l.base);},N);
+  const S=mask((c,W)=>{c.strokeStyle="#000";c.lineCap="round";c.lineJoin="round";c.lineWidth=W*0.03;
+    for(const s of strokes){c.beginPath();c.moveTo(s[0].x*W,s[0].y*W);for(const p of s)c.lineTo(p.x*W,p.y*W);c.stroke();}},N);
+  const Sd=dilate(S,N,4),Gd=dilate(G,N,4);
+  let g=0,gc=0,s=0,sc=0;for(let i=0;i<N*N;i++){if(G[i]){g++;if(Sd[i])gc++;}if(S[i]){s++;if(Gd[i])sc++;}}
+  const cov=g?gc/g:0,pre=s?sc/s:0;
+  show("cov",cov);show("pre",pre);
+  let v;
+  if(cov>=.8&&pre>=.85){v="Muito bom. A forma está próxima do modelo.";done.add(les+":"+idx);store.set("done",[...done]);buildTable();}
+  else if(cov<.6&&pre>=.8)v="O que você traçou está no lugar certo, mas faltam partes da letra. Confira o modelo e complete os traços.";
+  else if(pre<.6)v="Boa parte do traço saiu da forma. Desacelere, siga o modelo e preste atenção ao cabeçalho.";
+  else v="No caminho. Repita algumas vezes com o modelo e depois tente sem ele.";
+  if(!showGuide&&cov>=.7)v+=" Escrita de memória, sem modelo.";
+  $("verdict").textContent=v;
+}
+function show(k,v){const p=Math.round(v*100),col=v>=.8?"--good":v>=.6?"--warn":"--bad";
+  $(k+"V").textContent=p+"%";$(k+"V").style.color=tok(col);$(k+"F").style.width=p+"%";$(k+"F").style.background=tok(col);}
+function resetResult(){for(const k of["cov","pre"]){$(k+"V").textContent="—";$(k+"V").style.color="";$(k+"F").style.width="0";}
+  $("verdict").textContent="Escreva a letra e toque em Avaliar. Cobertura mede quanto da letra você traçou; precisão mede quanto do seu traço caiu sobre a forma.";}
+
+$("prev").onclick=()=>go(idx-1);$("next").onclick=()=>go(idx+1);
+$("undo").onclick=()=>{strokes.pop();redraw();};$("clear").onclick=()=>{strokes=[];redraw();resetResult();};
+$("toggle").onclick=e=>{showGuide=!showGuide;e.currentTarget.setAttribute("aria-pressed",showGuide);
+  e.currentTarget.textContent=showGuide?"Modelo visível":"Modelo oculto";drawGuide();};
+$("check").onclick=evaluate;
+for(const b of document.querySelectorAll(".dial button[data-d]"))b.onclick=()=>{dial=b.dataset.d;store.set("dial",dial);if(LES[les].cards){syncDial();showCard();}else renderPron();};
+new ResizeObserver(size).observe($("stage"));
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>{drawGuide();redraw();});
+new MutationObserver(()=>{drawGuide();redraw();}).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
+try{const d=localStorage.getItem("dial");if(d)dial=JSON.parse(d);}catch(e){}
+function setLes(n){les=n;store.set("les",les);const isC=!!LES[les].cards;
+  document.body.classList.toggle("cards-mode",isC);$("cards").hidden=!isC;
+  const grp=LES[les].group;if(grp)store.set("grp:"+grp,les);
+  for(const b of document.querySelectorAll("#tabs button"))b.setAttribute("aria-selected",String(b.dataset.g?b.dataset.g===grp:+b.dataset.l===les));
+  const sub=$("subtabs");sub.hidden=!grp;sub.innerHTML="";
+  if(grp)LES.forEach((l,i)=>{if(l.group!==grp)return;const b=document.createElement("button");b.type="button";b.role="tab";b.textContent=l.name;
+    b.setAttribute("aria-selected",String(i===les));b.onclick=()=>setLes(i);sub.appendChild(b);});
+  $("lesIntro").textContent=LES[les].intro;
+  if(isC){syncDial();buildChips();deal();return;}
+  idx=store.get("idx"+les,les===0?store.get("idx",0):0);if(idx>=count())idx=0;
+  $("t-lbl").textContent=LES[les].name;go(idx);}
+function syncDial(){for(const b of document.querySelectorAll(".dial button[data-d]"))b.setAttribute("aria-pressed",b.dataset.d===dial);}
+/* ---- Cards ---- */
+let face=store.get("cardFace","g"),deck=[],total=0,firstOk=0,missed=new Set(),revealed=false;
+function sources(){const s=[];for(let r=0;r<8;r++){const ids=[];for(let i=r*4;i<Math.min(L.length,r*4+4);i++)ids.push([0,i]);
+    s.push({key:"c"+r,label:ids.map(([,i])=>L[i][0]).join(" "),sub:"linha "+(r+1),ids});}
+  const cons=s.filter(x=>sel.has(x.key)).flatMap(x=>x.ids.map(([,i])=>i));
+  LES.forEach((l,li)=>{if(li===0||l.cards)return;
+    if(li===1&&cons.length){const ids=cons.flatMap(j=>V.map((_,vi)=>["v",vi,j]));
+      s.push({key:"l:"+l.name,label:l.name,sub:"× consoantes · "+ids.length+" cards",ids,txt:true});return;}
+    s.push({key:"l:"+l.name,label:l.name,sub:(li===1?"básico · ":"")+l.items.length+" cards",ids:l.items.map((_,i)=>[li,i]),txt:true});});
+  {const cs=new Set(cons);const ids=WD.map((w,i)=>[w,i]).filter(([w])=>!cons.length||w.used.every(u=>cs.has(u))).map(([,i])=>["w",i]);
+    s.splice(9,0,{key:"w",label:"Palavras",sub:(cons.length?"com essas letras · ":"todas · ")+ids.length,ids,txt:true});}
+  return s;}
+let sel=new Set(store.get("cardSel",["c0"]).filter(k=>!/^v\d$/.test(k)));
+function buildChips(){const box=$("chips");box.innerHTML="";
+  for(const src of sources()){const b=document.createElement("button");b.type="button";b.className="chip";
+    b.setAttribute("aria-pressed",sel.has(src.key));b.innerHTML=`<span class="cl${src.txt?" txt":""}">${src.label}</span><span class="cs">${src.sub}</span>`;
+    b.onclick=()=>{sel.has(src.key)?sel.delete(src.key):sel.add(src.key);store.set("cardSel",[...sel]);buildChips();deal();};box.appendChild(b);}
+  for(const b of document.querySelectorAll(".dial button[data-f]"))b.setAttribute("aria-pressed",b.dataset.f===face);}
+function deal(){const seen=new Set();deck=[];for(const src of sources())if(sel.has(src.key))for(const id of src.ids){const k=id.join(":");if(!seen.has(k)){seen.add(k);deck.push(id);}}
+  for(let i=deck.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[deck[i],deck[j]]=[deck[j],deck[i]];}
+  total=deck.length;firstOk=0;missed=new Set();revealed=false;showCard();}
+function pronOf(it){if(dial==="amdo")return it.am;return (it.t?`<span class="tone ${it.t}" style="font-family:var(--mono);font-size:.72rem;text-transform:uppercase;padding:2px 8px;border-radius:999px;border:1px solid currentColor;margin-right:6px;color:var(${it.t===HI?"--saffron":"--maroon"})">tom ${it.t===HI?"agudo":"grave"}</span>`:"")+it.lh;}
+function showCard(){const c=$("card");
+  $("cShow").hidden=revealed||!deck.length;$("cWrong").hidden=$("cRight").hidden=!revealed||!deck.length;
+  if(!total){c.innerHTML=`<span class="hint">Escolha pelo menos uma linha ou lição acima.</span>`;$("cStat").textContent="";return;}
+  if(!deck.length){c.innerHTML=`<span class="cr">Baralho completo</span><span class="cp">${firstOk} de ${total} de primeira.</span><span class="hint">Toque em “Embaralhar de novo” para repetir.</span>`;$("cStat").textContent="";return;}
+  const it=itemAt(...deck[0]),long=[...it.g].length>6;
+  const gl=`<span class="cg${long?" long":""}">${it.g}</span>`,rl=`<span class="cr">${it.r}</span>`;
+  let h=face==="g"?gl:rl+`<span class="hint">Como se escreve?</span>`;
+  if(revealed){h=(face==="g"?gl+"<hr>"+rl:rl+"<hr>"+gl)+`<span class="cp">${pronOf(it)}</span>`;
+    const wp=dial==="amdo"?it.wy:it.wp;if(!(it.w===it.g&&!it.wm))h+=`<span class="cw"><span class="wt">${it.w}</span> ${wp}${it.wm?" · "+it.wm:""}</span>`;}
+  else h+=`<span class="hint">Toque para virar</span>`;
+  c.innerHTML=h;$("cStat").textContent=`${total-deck.length} de ${total} feitos · ${deck.length} no baralho`;}
+function reveal(){if(!deck.length)return;revealed=true;showCard();$(face==="g"?"cRight":"cRight").focus({preventScroll:true});}
+$("card").onclick=()=>{if(!revealed)reveal();};$("cShow").onclick=reveal;
+$("cRight").onclick=()=>{const k=deck[0].join(":");if(!missed.has(k))firstOk++;deck.shift();revealed=false;showCard();};
+$("cWrong").onclick=()=>{const card=deck.shift();missed.add(card.join(":"));deck.splice(Math.min(3,deck.length),0,card);revealed=false;showCard();};
+$("cShuffle").onclick=deal;
+$("cAll").onclick=()=>{for(let r=0;r<8;r++)sel.add("c"+r);store.set("cardSel",[...sel]);buildChips();deal();};
+$("cNone").onclick=()=>{sel.clear();store.set("cardSel",[]);buildChips();deal();};
+for(const b of document.querySelectorAll(".dial button[data-f]"))b.onclick=()=>{face=b.dataset.f;store.set("cardFace",face);buildChips();revealed=false;showCard();};
+const tabs=$("tabs"),seenG=new Set();LES.forEach((l,i)=>{if(l.group&&seenG.has(l.group))return;
+  const b=document.createElement("button");b.type="button";b.role="tab";b.dataset.l=i;
+  if(l.group){seenG.add(l.group);b.dataset.g=l.group;b.textContent=l.group;b.onclick=()=>setLes(store.get("grp:"+l.group,i));}
+  else{b.textContent=l.name;b.onclick=()=>setLes(i);}tabs.appendChild(b);});
+setLes(Math.min(store.get("les",0),LES.length-1));
+(()=>{const b=$("fs"),d=document,el=d.documentElement;
+  const req=el.requestFullscreen||el.webkitRequestFullscreen,ex=d.exitFullscreen||d.webkitExitFullscreen;
+  const on=()=>!!(d.fullscreenElement||d.webkitFullscreenElement);
+  if(!req||!(d.fullscreenEnabled||d.webkitFullscreenEnabled))return;b.hidden=false;
+  const sync=()=>{b.textContent=on()?"✕ Sair da tela cheia":"⛶ Tela cheia";};
+  b.onclick=async()=>{try{if(on())await ex.call(d);else await req.call(el);}catch(e){b.hidden=true;}sync();};
+  d.addEventListener("fullscreenchange",sync);d.addEventListener("webkitfullscreenchange",sync);})();
+(document.fonts?document.fonts.load("100px 'Noto Serif Tibetan'","ཀ"):Promise.resolve()).then(()=>{drawGuide();});
+
+/* ---- App offline: atualização + sincronização do progresso ---- */
+const APP_VERSION="202611061541";
+(()=>{const st=$("syncSt"),btn=$("sync"),dlg=$("dlg"),GD="Caderno de Uchen — progresso",GF="progresso.json";
+  const ls={get:k=>{try{return localStorage.getItem(k)}catch(e){return null}},set:(k,v)=>{try{v==null?localStorage.removeItem(k):localStorage.setItem(k,v)}catch(e){}}};
+  const say=t=>{st.textContent=t;};
+  const last=ls.get("lastSync");say(last?"Última sincronização: "+new Date(+last).toLocaleString("pt-BR",{dateStyle:"short",timeStyle:"short"}):"Funciona sem internet.");
+  let reloadReady=false;
+  if("serviceWorker" in navigator){const hadCtl=!!navigator.serviceWorker.controller;navigator.serviceWorker.register("sw.js").catch(()=>{});
+    navigator.serviceWorker.addEventListener("controllerchange",()=>{if(reloadReady||!hadCtl)return;reloadReady=true;
+      say("Versão nova instalada.");btn.textContent="↻ Abrir versão nova";btn.onclick=()=>location.reload();});}
+  async function update(){const reg=await navigator.serviceWorker?.getRegistration();if(!reg)return false;
+    await reg.update();const w=reg.installing||reg.waiting;if(!w)return false;
+    await new Promise(r=>{if(w.state==="activated")return r();w.addEventListener("statechange",()=>{if(w.state==="activated")r();});setTimeout(r,8000);});return true;}
+  const PK=["done","cardSel","cardFace","dial"];
+  function snapshot(){const o={};for(const k of PK){const v=ls.get(k);if(v!=null)o[k]=JSON.parse(v);}o.prefsAt=+(ls.get("prefsAt")||0);return o;}
+  async function gh(path,opt={}){const r=await fetch("https://api.github.com"+path,{...opt,headers:{"Accept":"application/vnd.github+json","Authorization":"Bearer "+ls.get("ghToken"),...(opt.body?{"Content-Type":"application/json"}:{})}});
+    if(r.status===401)throw new Error("chave");if(!r.ok)throw new Error("http "+r.status);return r.json();}
+  async function findGist(){let id=ls.get("gistId");if(id)return id;
+    for(let p=1;p<=5;p++){const list=await gh("/gists?per_page=100&page="+p);const g=list.find(x=>x.description===GD&&x.files[GF]);if(g){ls.set("gistId",g.id);return g.id;}if(list.length<100)break;}
+    return null;}
+  async function syncProgress(){let id=await findGist(),remote={};
+    if(id){try{const g=await gh("/gists/"+id);const f=g.files[GF];remote=JSON.parse(f.truncated?await (await fetch(f.raw_url)).text():f.content);}catch(e){if(String(e.message).startsWith("http 404")){ls.set("gistId",null);id=null;}else throw e;}}
+    const local=snapshot();
+    const doneU=[...new Set([...(local.done||[]),...(remote.done||[])])];
+    const newer=(remote.prefsAt||0)>(local.prefsAt||0)?remote:local;
+    const merged={done:doneU,cardSel:newer.cardSel??local.cardSel??remote.cardSel,cardFace:newer.cardFace??local.cardFace,dial:newer.dial??local.dial,prefsAt:Math.max(local.prefsAt||0,remote.prefsAt||0),updated:new Date().toISOString()};
+    const body=JSON.stringify({description:GD,public:false,files:{[GF]:{content:JSON.stringify(merged,null,1)}}});
+    if(id)await gh("/gists/"+id,{method:"PATCH",body});else{const g=await gh("/gists",{method:"POST",body});ls.set("gistId",g.id);}
+    let changed=false;for(const k of ["done","cardSel","cardFace","dial"]){if(merged[k]===undefined)continue;const v=JSON.stringify(k==="done"?[...merged.done].sort():merged[k]),cur=JSON.stringify(k==="done"?[...(local.done||[])].sort():local[k]);
+      if(v!==cur){ls.set(k,JSON.stringify(merged[k]));changed=true;}}
+    ls.set("prefsAt",String(merged.prefsAt));return changed;}
+  btn.onclick=async()=>{if(!navigator.onLine){say("Sem internet. Tudo continua salvo neste aparelho.");return;}
+    btn.disabled=true;say("Procurando versão nova…");
+    try{const upd=await update().catch(()=>false);
+      if(!ls.get("ghToken")){if(upd){say("Versão nova instalada. Recarregando…");setTimeout(()=>location.reload(),600);return;}
+        say("O app está atualizado. Para levar o progresso entre aparelhos, toque em ⚙.");return;}
+      say("Sincronizando o progresso…");const ch=await syncProgress();ls.set("lastSync",String(Date.now()));
+      if(ch||upd){say("Pronto. Recarregando…");setTimeout(()=>location.reload(),600);}
+      else say("Tudo em dia · "+new Date().toLocaleTimeString("pt-BR",{timeStyle:"short"}));}
+    catch(e){say(e.message==="chave"?"A chave do GitHub não foi aceita. Toque em ⚙ e cole uma nova.":"Não deu para sincronizar agora ("+e.message+"). Nada se perdeu.");}
+    finally{btn.disabled=false;}};
+  $("syncCfg").onclick=()=>{$("tok").value="";dlg.showModal();};
+  dlg.addEventListener("close",()=>{if(dlg.returnValue==="save"&&$("tok").value.trim()){ls.set("ghToken",$("tok").value.trim());ls.set("gistId",null);say("Chave salva. Toque em Sincronizar.");}
+    if(dlg.returnValue==="forget"){ls.set("ghToken",null);ls.set("gistId",null);say("Chave apagada deste aparelho.");}});
+})();
+</script>
+</body></html>
