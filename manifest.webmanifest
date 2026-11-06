@@ -1,7 +1,8 @@
 {
- "name": "Caderno de Uchen",
+ "name": "Caderno de Uchen · Uchen Notebook",
  "short_name": "Uchen",
  "lang": "pt-BR",
+ "description": "Learn to write Tibetan uchen script: consonants, vowels, stacks, mantras and review cards. Works offline. / Aprenda a escrever o tibetano uchen.",
  "start_url": "./",
  "scope": "./",
  "display": "fullscreen",

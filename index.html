@@ -147,31 +147,31 @@ body.cards-mode .work,body.cards-mode .result,body.cards-mode #table,body.cards-
 
 <div class="wrap">
   <header>
-    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px"><h1>Caderno de Uchen</h1><button type="button" class="btn sm" id="fs" hidden>⛶ Tela cheia</button></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap"><h1 data-en="Uchen Notebook">Caderno de Uchen</h1><div style="display:flex;gap:6px"><button type="button" class="btn sm" id="lang" lang="en">English</button><button type="button" class="btn sm" id="fs" hidden data-en="⛶ Full screen">⛶ Tela cheia</button></div></div>
     <div class="sync">
-      <button type="button" class="btn sm" id="sync">⟳ Sincronizar</button>
-      <button type="button" class="btn sm" id="syncCfg" aria-label="Configurar sincronização">⚙</button>
+      <button type="button" class="btn sm" id="sync" data-en="⟳ Sync">⟳ Sincronizar</button>
+      <button type="button" class="btn sm" id="syncCfg" aria-label="Configurar sincronização / Sync settings">⚙</button>
       <span class="st" id="syncSt"></span>
     </div>
     <dialog id="dlg">
       <form method="dialog" style="display:flex;flex-direction:column;gap:10px">
-        <strong>Sincronizar o progresso</strong>
-        <p class="note" style="margin:0">O progresso (letras feitas, seleção dos cards, pronúncia escolhida) fica numa gist <b>privada</b> da sua conta do GitHub. Cada aparelho precisa da chave uma vez.</p>
+        <strong data-en="Sync your progress">Sincronizar o progresso</strong>
+        <p class="note" style="margin:0" data-en="Your progress (letters done, card selection, chosen pronunciation) is kept in a &lt;b&gt;private&lt;/b&gt; gist in your GitHub account. Each device needs the key once.">O progresso (letras feitas, seleção dos cards, pronúncia escolhida) fica numa gist <b>privada</b> da sua conta do GitHub. Cada aparelho precisa da chave uma vez.</p>
         <ol>
-          <li>Abra <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com → Fine-grained token</a>.</li>
-          <li>Nome: <i>Caderno de Uchen</i>. Validade: a que preferir.</li>
-          <li>Em <b>Account permissions → Gists</b>, escolha <b>Read and write</b>. Nada mais.</li>
-          <li>Gere, copie e cole abaixo.</li>
+          <li><span data-en="Open">Abra</span> <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com → Fine-grained token</a>.</li>
+          <li data-en="Name: &lt;i&gt;Uchen Notebook&lt;/i&gt;. Expiration: whatever you prefer.">Nome: <i>Caderno de Uchen</i>. Validade: a que preferir.</li>
+          <li data-en="Under &lt;b&gt;Account permissions → Gists&lt;/b&gt;, choose &lt;b&gt;Read and write&lt;/b&gt;. Nothing else.">Em <b>Account permissions → Gists</b>, escolha <b>Read and write</b>. Nada mais.</li>
+          <li data-en="Generate it, copy it and paste it below.">Gere, copie e cole abaixo.</li>
         </ol>
         <input id="tok" type="password" autocomplete="off" placeholder="github_pat_…">
         <div class="bar" style="justify-content:flex-end">
-          <button class="btn sm" value="forget" id="tokForget">Esquecer chave</button>
-          <button class="btn sm" value="cancel">Cancelar</button>
-          <button class="btn sm primary" value="save">Salvar</button>
+          <button class="btn sm" value="forget" id="tokForget" data-en="Forget key">Esquecer chave</button>
+          <button class="btn sm" value="cancel" data-en="Cancel">Cancelar</button>
+          <button class="btn sm primary" value="save" data-en="Save">Salvar</button>
         </div>
       </form>
     </dialog>
-    <p>Das 30 consoantes aos mantras, uma lição por vez, e cards para revisar. Trace com caneta ou dedo, primeiro sobre o modelo e depois sem ele.</p>
+    <p data-en="From the 30 consonants to the mantras, one lesson at a time, plus cards for review. Trace with a pen or finger, first over the guide and then without it.">Das 30 consoantes aos mantras, uma lição por vez, e cards para revisar. Trace com caneta ou dedo, primeiro sobre o modelo e depois sem ele.</p>
   </header>
 
   <section aria-labelledby="t-lbl" style="display:flex;flex-direction:column;gap:6px">
@@ -183,20 +183,20 @@ body.cards-mode .work,body.cards-mode .result,body.cards-mode #table,body.cards-
   </section>
 
   <section class="cards" id="cards" hidden aria-label="Cards">
-    <span class="lbl">O que entra no baralho</span>
+    <span class="lbl" data-en="What goes in the deck">O que entra no baralho</span>
     <div class="chips" id="chips"></div>
     <div class="chipbar">
-      <button type="button" class="btn sm" id="cAll">Todas as consoantes</button>
-      <button type="button" class="btn sm" id="cNone">Limpar seleção</button>
+      <button type="button" class="btn sm" id="cAll" data-en="All consonants">Todas as consoantes</button>
+      <button type="button" class="btn sm" id="cNone" data-en="Clear selection">Limpar seleção</button>
     </div>
-    <div class="dial" role="group" aria-label="Frente do card"><span class="lbl">Frente</span><button type="button" class="btn sm" data-f="g">Letra</button><button type="button" class="btn sm" data-f="r">Som</button></div>
-    <div class="dial" role="group" aria-label="Pronúncia"><span class="lbl">Pronúncia</span><button type="button" class="btn sm" data-d="amdo">Amdo · Golok</button><button type="button" class="btn sm" data-d="lhasa">Lhasa</button></div>
+    <div class="dial" role="group" aria-label="Frente do card"><span class="lbl" data-en="Front">Frente</span><button type="button" class="btn sm" data-f="g" data-en="Letter">Letra</button><button type="button" class="btn sm" data-f="r" data-en="Sound">Som</button></div>
+    <div class="dial" role="group" aria-label="Pronúncia"><span class="lbl" data-en="Pronunciation">Pronúncia</span><button type="button" class="btn sm" data-d="amdo">Amdo · Golok</button><button type="button" class="btn sm" data-d="lhasa">Lhasa</button></div>
     <button type="button" class="card" id="card" aria-live="polite"></button>
     <div class="bar">
-      <button class="btn primary" id="cShow" type="button">Mostrar</button>
-      <button class="btn" id="cWrong" type="button" hidden>Errei</button>
-      <button class="btn primary" id="cRight" type="button" hidden>Acertei</button>
-      <button class="btn" id="cShuffle" type="button">Embaralhar de novo</button>
+      <button class="btn primary" id="cShow" type="button" data-en="Show">Mostrar</button>
+      <button class="btn" id="cWrong" type="button" hidden data-en="Missed it">Errei</button>
+      <button class="btn primary" id="cRight" type="button" hidden data-en="Got it">Acertei</button>
+      <button class="btn" id="cShuffle" type="button" data-en="Shuffle again">Embaralhar de novo</button>
     </div>
     <p class="note" id="cStat"></p>
   </section>
@@ -208,12 +208,12 @@ body.cards-mode .work,body.cards-mode .result,body.cards-mode #table,body.cards-
     <span class="name" id="curR">ka</span>
     <span class="col" id="curC">linha 1 · não aspirada</span>
   </div>
-  <div class="dial" role="group" aria-label="Pronúncia"><span class="lbl">Pronúncia</span><button type="button" class="btn sm" data-d="amdo">Amdo · Golok</button><button type="button" class="btn sm" data-d="lhasa">Lhasa</button></div>
+  <div class="dial" role="group" aria-label="Pronúncia"><span class="lbl" data-en="Pronunciation">Pronúncia</span><button type="button" class="btn sm" data-d="amdo">Amdo · Golok</button><button type="button" class="btn sm" data-d="lhasa">Lhasa</button></div>
   <p class="note" id="dialNote"></p>
   <p class="pron" id="curP"></p>
   <p class="word" id="curW"></p>
   <section class="order" aria-labelledby="o-lbl">
-    <span class="lbl" id="o-lbl">Ordem dos traços</span>
+    <span class="lbl" id="o-lbl" data-en="Stroke order">Ordem dos traços</span>
     <ol id="curO"></ol>
     <p class="note" id="curOn"></p>
   </section>
@@ -226,44 +226,50 @@ body.cards-mode .work,body.cards-mode .result,body.cards-mode #table,body.cards-
   </div>
 
   <div class="bar">
-    <button class="btn" id="prev" type="button">← Anterior</button>
-    <button class="btn" id="undo" type="button">Desfazer traço</button>
-    <button class="btn" id="clear" type="button">Limpar</button>
-    <button class="btn" id="toggle" type="button" aria-pressed="true">Modelo visível</button>
-    <button class="btn primary" id="check" type="button">Avaliar</button>
-    <button class="btn" id="next" type="button">Próxima →</button>
+    <button class="btn" id="prev" type="button" data-en="← Previous">← Anterior</button>
+    <button class="btn" id="undo" type="button" data-en="Undo stroke">Desfazer traço</button>
+    <button class="btn" id="clear" type="button" data-en="Clear">Limpar</button>
+    <button class="btn" id="toggle" type="button" aria-pressed="true" data-en="Guide shown">Modelo visível</button>
+    <button class="btn primary" id="check" type="button" data-en="Check">Avaliar</button>
+    <button class="btn" id="next" type="button" data-en="Next →">Próxima →</button>
   </div>
   </div>
   </div>
 
   <section class="result" aria-live="polite">
     <div class="meters">
-      <div class="meter"><span class="lbl">Cobertura</span><div class="v" id="covV">—</div><div class="track"><div class="fill" id="covF"></div></div></div>
-      <div class="meter"><span class="lbl">Precisão</span><div class="v" id="preV">—</div><div class="track"><div class="fill" id="preF"></div></div></div>
+      <div class="meter"><span class="lbl" data-en="Coverage">Cobertura</span><div class="v" id="covV">—</div><div class="track"><div class="fill" id="covF"></div></div></div>
+      <div class="meter"><span class="lbl" data-en="Precision">Precisão</span><div class="v" id="preV">—</div><div class="track"><div class="fill" id="preF"></div></div></div>
     </div>
-    <p class="verdict" id="verdict">Escreva a letra e toque em <b>Avaliar</b>. Cobertura mede quanto da letra você traçou; precisão mede quanto do seu traço caiu sobre a forma.</p>
-    <p class="note">A avaliação compara formas, não a ordem dos traços. Para correção de ordem e proporção, tire um print e mande ao Claude.</p>
+    <p class="verdict" id="verdict" data-en="Write the letter and tap &lt;b&gt;Check&lt;/b&gt;. Coverage measures how much of the letter you traced; precision measures how much of your stroke landed on the shape.">Escreva a letra e toque em <b>Avaliar</b>. Cobertura mede quanto da letra você traçou; precisão mede quanto do seu traço caiu sobre a forma.</p>
+    <p class="note" data-en="The check compares shapes, not stroke order. For feedback on order and proportion, take a screenshot and send it to Claude.">A avaliação compara formas, não a ordem dos traços. Para correção de ordem e proporção, tire um print e mande ao Claude.</p>
   </section>
 
   <section style="display:flex;flex-direction:column;gap:6px">
-    <span class="lbl">Lembretes</span>
+    <span class="lbl" data-en="Notes">Lembretes</span>
     <ul class="notes">
-      <li>As letras pendem da linha superior (o "cabeçalho"), não se apoiam numa linha de base.</li>
-      <li>O cabeçalho vem sempre primeiro. Traços horizontais vão da esquerda para a direita, verticais de cima para baixo.</li>
-      <li>Os "ombros" (traços que descem em diagonal) começam finos e engrossam. Os traços que cruzam a "barriga" da letra são grossos no meio e finos nas pontas.</li>
-      <li>ཙ ཚ ཛ são ཅ ཆ ཇ com uma marca no alto. Compare ད com ང, e པ com ཕ e བ.</li>
-      <li>Pratique primeiro com o modelo, depois esconda-o e escreva de memória.</li>
-      <li>Escolha a pronúncia do seu professor no seletor acima da letra. A versão dele sempre vale mais do que a descrição.</li>
-      <li>Truque do inglês: k, t e p soam com sopro em “kite”, “top” e “pin”, e sem sopro depois de s, em “skate”, “stop” e “spin”.</li>
-      <li>Nas palavras de exemplo, a pronúncia nem sempre segue a escrita letra por letra. Letras mudas e empilhadas são assunto para depois das consoantes.</li>
-      <li>Ordem dos traços: <a href="https://sites.google.com/view/chrisfynn/home/tibetanscriptfonts/howtowritethetibetanscript" target="_blank" rel="noopener">Chris Fynn, How to write the Tibetan script</a>.</li>
-      <li>Guia de caligrafia: <a href="https://www.tibetanlanguage.org/wp-content/uploads/2021/09/Tibetan-Alphabet-Calligraphy-Guide-PDF.pdf" target="_blank" rel="noopener">guia de caligrafia do Tibetan Language Institute (PDF)</a>.</li>
-      <li>Áudio: <a href="https://en.wikiversity.org/wiki/Tibetan_Language/Learning_the_script_and_associated_phonemes" target="_blank" rel="noopener">Wikiversity, escrita e fonemas</a> e a <a href="https://www.tibetanlanguage.org/wp-content/uploads/2019/10/Level-1-Tibetan-Alphabet-with-phonetics.pdf" target="_blank" rel="noopener">tabela com fonética (PDF)</a>.</li>
+      <li data-en="Letters hang from the top line (the “headline”); they don’t sit on a baseline.">As letras pendem da linha superior (o "cabeçalho"), não se apoiam numa linha de base.</li>
+      <li data-en="The headline always comes first. Horizontal strokes go left to right, vertical ones top to bottom.">O cabeçalho vem sempre primeiro. Traços horizontais vão da esquerda para a direita, verticais de cima para baixo.</li>
+      <li data-en="The “shoulders” (strokes going down diagonally) start thin and get thicker. Strokes crossing the “belly” of the letter are thick in the middle and thin at the ends.">Os "ombros" (traços que descem em diagonal) começam finos e engrossam. Os traços que cruzam a "barriga" da letra são grossos no meio e finos nas pontas.</li>
+      <li data-en="ཙ ཚ ཛ are ཅ ཆ ཇ with a mark on top. Compare ད with ང, and པ with ཕ and བ.">ཙ ཚ ཛ são ཅ ཆ ཇ com uma marca no alto. Compare ད com ང, e པ com ཕ e བ.</li>
+      <li data-en="Practice first with the guide, then hide it and write from memory.">Pratique primeiro com o modelo, depois esconda-o e escreva de memória.</li>
+      <li data-en="Choose your teacher’s pronunciation in the selector above the letter. Their version always beats the description.">Escolha a pronúncia do seu professor no seletor acima da letra. A versão dele sempre vale mais do que a descrição.</li>
+      <li data-en="English tip: k, t and p are aspirated in “kite”, “top” and “pin”, and unaspirated after s, in “skate”, “stop” and “spin”.">Truque do inglês: k, t e p soam com sopro em “kite”, “top” e “pin”, e sem sopro depois de s, em “skate”, “stop” e “spin”.</li>
+      <li data-en="In the example words, pronunciation doesn’t always follow the spelling letter by letter. Silent and stacked letters come after the consonants.">Nas palavras de exemplo, a pronúncia nem sempre segue a escrita letra por letra. Letras mudas e empilhadas são assunto para depois das consoantes.</li>
+      <li><span data-en="Stroke order:">Ordem dos traços:</span> <a href="https://sites.google.com/view/chrisfynn/home/tibetanscriptfonts/howtowritethetibetanscript" target="_blank" rel="noopener">Chris Fynn, How to write the Tibetan script</a>.</li>
+      <li><span data-en="Calligraphy guide:">Guia de caligrafia:</span> <a href="https://www.tibetanlanguage.org/wp-content/uploads/2021/09/Tibetan-Alphabet-Calligraphy-Guide-PDF.pdf" target="_blank" rel="noopener" data-en="Tibetan Language Institute calligraphy guide (PDF)">guia de caligrafia do Tibetan Language Institute (PDF)</a>.</li>
+      <li><span data-en="Audio:">Áudio:</span> <a href="https://en.wikiversity.org/wiki/Tibetan_Language/Learning_the_script_and_associated_phonemes" target="_blank" rel="noopener" data-en="Wikiversity, script and phonemes">Wikiversity, escrita e fonemas</a> <span data-en="and the">e a</span> <a href="https://www.tibetanlanguage.org/wp-content/uploads/2019/10/Level-1-Tibetan-Alphabet-with-phonetics.pdf" target="_blank" rel="noopener" data-en="chart with phonetics (PDF)">tabela com fonética (PDF)</a>.</li>
     </ul>
   </section>
 </div>
 
 <script>
+const LANG=(()=>{try{const v=localStorage.getItem("uiLang");if(v)return v;}catch(e){}return (navigator.language||"pt").toLowerCase().startsWith("pt")?"pt":"en";})(),EN=LANG==="en";
+const T=(pt,en)=>EN?en:pt;
+document.documentElement.lang=EN?"en":"pt-BR";
+if(EN){document.title="Uchen Notebook";for(const el of document.querySelectorAll("[data-en]"))el.innerHTML=el.dataset.en;}
+{const lb=document.getElementById("lang");lb.textContent=EN?"Português":"English";lb.lang=EN?"pt":"en";
+  lb.onclick=()=>{try{localStorage.setItem("uiLang",EN?"pt":"en");}catch(e){}location.reload();};}
 const L=[["ཀ","ka"],["ཁ","kha"],["ག","ga"],["ང","nga"],["ཅ","ca"],["ཆ","cha"],["ཇ","ja"],["ཉ","nya"],
 ["ཏ","ta"],["ཐ","tha"],["ད","da"],["ན","na"],["པ","pa"],["ཕ","pha"],["བ","ba"],["མ","ma"],
 ["ཙ","tsa"],["ཚ","tsha"],["ཛ","dza"],["ཝ","wa"],["ཞ","zha"],["ཟ","za"],["འ","'a"],["ཡ","ya"],
@@ -344,7 +350,7 @@ const AM=["Como o k de “casa”, ou de “skate” em inglês: sem sopro.","Co
 "O r de “caro”.","O l de “lua”.","Como “xícara”, ou o sh de “she” em inglês.","O s de “sapo”.",
 "Como o h de “house” em inglês: soprado.","O “a” de “casa”. É a base para escrever vogais soltas."];
 let dial="amdo";
-const CONS="Escreva a letra de cima inteira, depois a de baixo, colada nela.";
+let CONS="Escreva a letra de cima inteira, depois a de baixo, colada nela.";
 const LES=[
 {name:"Consoantes",intro:"As 30 consoantes. Cada uma já carrega o som “a”."},
 {name:"Vogais",intro:"Toda consoante já tem o “a”. As outras quatro vogais são marcas: ི ེ ོ ficam em cima e ུ fica embaixo. Escreva a consoante inteira e só depois a vogal. Uma vogal sozinha se escreve sobre ཨ.",items:[
@@ -424,16 +430,139 @@ function wy2tib(wy){const used=new Set();const out=wy.split(" ").map(syl=>{let t
     const m=CM.find(([r])=>syl.startsWith(r,k));if(!m)return "?";t+=m[1];used.add(m[2]);k+=m[0].length;}
   return t;}).join("་");return{t:out,used};}
 const WD=W.map(([wy,pr,mn])=>{const {t,used}=wy2tib(wy);return{wy,pr,mn,t,used:[...used]};});
+/* ---- English overlay: replaces the Portuguese teaching content when the interface is in English ---- */
+if(EN){
+  const PE=[["Like the k in “skate”: no puff of air.","pillar"],["Like the k in “kite”: with a strong puff of air.","mouth"],
+  ["“ka” in a low tone; in Dharma recitation many say the g of “go”.","snow"],["The “ng” of “sing”, but at the start of the syllable.","I"],
+  ["Like the ch in “each”: no puff of air.","what?"],["Like the ch in “chair”: with a strong puff of air.","water"],
+  ["“ch” in a low tone, or the j of “jeans”.","tea"],["The “ny” of “canyon”.","sun"],
+  ["Like the t in “stop”: no puff of air.","meditative concentration"],["Like the t in “top”: with a strong puff of air.","compassion"],
+  ["“ta” in a low tone, or the d of “day”.","now"],["The n of “no”.","sky, space"],
+  ["Like the p in “spin”: no puff of air.","lotus"],["Like the p in “pin”: with a strong puff of air.","father and mother"],
+  ["“pa” in a low tone, or the b of “bay”.","son"],["The m of “more”.","mother"],
+  ["Like the ts in “cats”: no puff of air.","roasted barley flour"],["“ts” with a strong puff of air.","hot"],
+  ["Like the ds in “kids”, in a low tone.","our world (Jambudvipa)"],["Like the w in “water”.","fox"],
+  ["The sh of “she”, in a low tone.","peace"],["The s of “sun”, in a low tone.","food"],
+  ["A pure vowel “a” in a low tone; almost no consonant sound.","light"],["Like the y in “yes”.","letter"],
+  ["A light, tapped r, as in Spanish “pero”; never a rolled r.","mountain"],["The l of “lake”.","path"],
+  ["The sh of “she”, in a high tone.","wisdom"],["The s of “sun”, in a high tone.","mind"],
+  ["Like the h in “house”: breathy.","very"],["The “a” of “father”, in a high tone. It is the base for writing stand-alone vowels.","mother"]];
+  PE.forEach(([s,m],i)=>{P[i][1]=s;P[i][4]=m;});
+  const AE=["Like the k in “skate”: no puff of air.","Like the k in “kite”: with a strong puff of air.","The g of “go”, voiced.","The “ng” of “sing”, but at the start of the syllable.",
+  "Like the ch in “each”: no puff of air.","Like the ch in “chair”: with a strong puff of air.","The j of “jeans”, voiced.","The “ny” of “canyon”.",
+  "Like the t in “stop”: no puff of air.","Like the t in “top”: with a strong puff of air.","The d of “day”, voiced.","The n of “no”.",
+  "Like the p in “spin”: no puff of air.","Like the p in “pin”: with a strong puff of air.","The b of “bay”, voiced.","The m of “more”.",
+  "Like the ts in “cats”: no puff of air.","“ts” with a strong puff of air.","The ds of “kids”, voiced.","Like the w in “water”.",
+  "The s of “measure”, voiced.","The z of “zebra”, voiced.","A pure vowel “a”.","Like the y in “yes”.",
+  "A light, tapped r, as in Spanish “pero”.","The l of “lake”.","The sh of “she”.","The s of “sun”.",
+  "Like the h in “house”: breathy.","The “a” of “father”. It is the base for writing stand-alone vowels."];
+  AE.forEach((s,i)=>AM[i]=s);
+  const H="Headline: horizontal stroke at the top, left to right.";
+  const OMB="Shoulder: short stroke going down from the left end of the headline, curving slightly to the left.";
+  const OE={
+  0:[H,"Left stroke: goes down from the headline, curving left like a tooth.","Middle stroke: short, straight down from the headline.","Right stem: goes down from the headline, long, well below the rest of the letter."],
+  1:[H,"Long left stem, top to bottom.","Short stroke going down inside, just right of the stem.","Diagonal leaving that stroke and going down to the right, thickening.","Right side: goes down from the end of the headline and closes the shape."],
+  2:[H,OMB,"Diagonal from the tip of the shoulder, going down to the right.","Middle stroke: goes down from the headline until it meets the diagonal.","Long stem on the right, going below the rest."],
+  3:[H,OMB,"Diagonal from the tip of the shoulder, going down to the right. It is the base of the letter."],
+  4:[H,"Small hook just below the headline, turning back to the left.","Curve going down the left side and on to the right, forming the bottom.","Bowl on the right side: goes up and closes the curve."],
+  5:[H,"First loop: goes down from the headline and closes a circle on the left.","Second loop, to the right of the first, closing another circle."],
+  6:[H,OMB,"Diagonal from the tip of the shoulder, going down to the right.","Horizontal middle stroke, left to right."],
+  7:[H,"Short curved stroke going down on the left.","Arc leaving the top and going down the right side.","Small loop in the middle, curving to the left.","Tail: from the right side, goes down in a long curve and ends at the bottom, on the left."],
+  8:[H,OMB,"Right side: goes down from the end of the headline in a curve and continues long to the bottom, ending on the left."],
+  9:[H,"Curved stroke in the middle of the letter, opening to the right.","Stroke going down and curving left, just below.","Base diagonal, going down to the right.","Right stem: goes down from the headline and closes the shape."],
+  10:[H,OMB,"Right side: goes down from the end of the headline in a curve and continues long to the bottom."],
+  11:[H,"Short stroke going down from the middle of the headline.","Long stem: goes down from the headline to the bottom, next to the previous stroke.","Loop: leaves the stem, loops to the right and goes up to the headline."],
+  12:[H,OMB,"Base diagonal: from the tip of the shoulder, going down to the right.","Right stem: goes down from the headline until it meets the base."],
+  13:["Write a complete པ (headline, shoulder, base and right stem).","Extra stroke: from the upper right corner, inside, going diagonally down to the left."],
+  14:[H,"The body follows the same sequence as པ: shoulder, base and right stem, forming a closed box."],
+  15:[H,"Short stroke going down from the headline.","Diagonal going down to the right.","Loop: underneath, on the left, coming back up.","Right stem, top to bottom."],
+  16:["Write the whole ཅ (headline, hook, bottom curve and bowl).","Mark at the top right: short stroke above the headline, curving up to the right."],
+  17:["Write the whole ཆ (headline and the two loops).","Mark at the top right, as in ཙ."],
+  18:["Write the whole ཇ (headline, shoulder, diagonal and middle stroke).","Mark at the top right, as in ཙ."],
+  19:[H,"Short curved stroke on the left.","Arc leaving the top and going down the right side.","Bottom stroke, left to right.","Mark at the top right, as in ཙ.","Finally, the lower body, box-shaped."],
+  20:[H,"Curved stroke going down the left side.","Arc leaving the top and going down the right side.","Long stem on the right, going down to the bottom.","Loop in the middle, curving to the left."],
+  21:[H,"Right side: goes down from the end of the headline.","Base: bottom stroke, left to right, until it meets the stem.","Middle stroke, left to right."],
+  22:[H,"Curve going down the left side.","Arc leaving the top and going down the right side.","Base: bottom stroke going to the right."],
+  23:["This letter does not start with a separate headline. First stroke: the top and the left side together, curving down.","Second stroke: a U-shaped arc, to the right of the first.","Tail going diagonally down to the right.","Right stem, top to bottom."],
+  24:[H,"Short stroke going down from the headline.","Base diagonal, going down to the right."],
+  25:[H,"Curve going down the left side.","Arc leaving the top and going down the right side.","Base diagonal, going out to the right.","Right stem, top to bottom."],
+  26:["This letter starts at the bottom. First stroke: the left foot, a short diagonal going down to the right.","Headline: rises from the foot along the left side and continues across the top, to the right.","Loop in the middle: a small circle.","Long stem on the right, top to bottom."],
+  27:[H,OMB,"Diagonal from the tip of the shoulder, going down to the right.","Second diagonal, in the middle, going down to the right.","Right stem, top to bottom."],
+  28:[H,OMB,"Short diagonal from the tip of the shoulder.","Right side: goes down from the end of the headline in a curve and continues long to the bottom."],
+  29:["This letter starts on the left side: a curve that goes down and turns right at the bottom.","Headline, left to right.","Curved stroke in the middle, going down.","Diagonal going down to the right.","Right stem, top to bottom."]};
+  Object.assign(O,OE);
+  CONS="Write the whole upper letter, then the lower one, attached to it.";
+  const OM=["Write ཨ.","Naro (ོ) on top.","The mark ཾ last, above the naro."];
+  const HUNG=["Write ཧ.","Below, the small ཱ that lengthens the vowel.","Zhabkyu (ུ) below it.","On top, the moon with a dot (ྃ)."];
+  const FULL=["Write syllable by syllable, left to right.","After each syllable, the tsheg (་) at headline height."];
+  const LE=[
+  {en:"Consonants",intro:"The 30 consonants. Each already carries the sound “a”."},
+  {en:"Vowels",intro:"Every consonant already has the “a”. The other four vowels are marks: ི ེ ོ go on top and ུ goes below. Write the whole consonant first, then the vowel. A stand-alone vowel is written on ཨ.",items:[
+   {s:"The i of “machine”.",wm:"sun",o:["Write the consonant (here, ཨ).","Gigu: starts on the left, curves up and comes down to the right, like a hook over the letter."]},
+   {s:"The u of “rule”.",wm:"water",o:["Write the consonant (here, ཨ).","Zhabkyu: under the letter, goes down, curves right and ends in a hook."]},
+   {s:"The closed e of “café”.",wm:"fire",o:["Write the consonant (here, ཨ).","Drengbu: short stroke above the letter, going diagonally down from left to right."]},
+   {s:"The closed o of “go”.",wm:"year",o:["Write the consonant (here, ཨ).","Naro: curved stroke above the letter, left to right."]},
+   {s:"ཀ (ka) with gigu: “ki”."},{s:"ཀ (ka) with zhabkyu: “ku”.",wm:"body (honorific)"},{s:"ཀ (ka) with drengbu: “ke”."},{s:"ཀ (ka) with naro: “ko”."},
+   {s:"ར (ra) with gigu.",wm:"mountain"},{s:"བ (ba) with zhabkyu.",wm:"son"}]},
+  {en:"Superscripts",intro:"Three letters can sit on top of another: ར (ra-go), ལ (la-go) and ས (sa-go). The upper one shrinks and rests on the lower one; ར loses its leg and becomes a short stroke. In Lhasa the upper letter is silent. In Amdo it often leaves a sound before the consonant. Listen to your teacher.",items:[
+   {s:"ra on top of ka.",wm:"foot"},{s:"ra on top of ta.",wm:"horse"},{s:"ra on top of da.",wm:"vajra"},{s:"ra on top of na.",wm:"consciousness"},
+   {s:"ra on top of ma.",wm:"dream"},{s:"ra on top of tsa.",wm:"subtle channel, root"},
+   {s:"Exception: here ལ is pronounced, and ཧ makes it breathy, like an “l” with air.",wm:"deity"},
+   {s:"la on top of ta.",wm:"view"},{s:"la on top of ca.",wm:"iron"},{s:"sa on top of ka.",wm:"body (honorific)"},
+   {s:"sa on top of nga.",wm:"mantra"},{s:"sa on top of ta.",wm:"emptiness"},{s:"sa on top of ma.",wm:"medicine"}]},
+  {en:"Subscripts",intro:"Four letters can go under another: ཡ (ya-ta ྱ), ར (ra-ta ྲ), ལ (la-ta ླ) and ཝ (wa-zur ྭ). Some change the sound of the upper letter. The changes described are Lhasa's; Amdo is similar, but check with your teacher.",items:[
+   {s:"k + y: “kya”.",wm:"mandala"},{s:"aspirated k + y: “khya”.",wm:"dog"},{s:"p + y becomes an aspirated “ch”.",wm:"hand (honorific), prostration"},
+   {s:"b + y becomes “j” (in Lhasa, a low-tone “ch”).",wm:"enlightenment (bodhi)"},{s:"g + r becomes a “dr” with the tongue curled back.",wm:"friend"},
+   {s:"aspirated k + r becomes an aspirated “tr”.",wm:"blood"},{s:"Three levels: s on top, p in the middle, r below. Sounds “tr”.",wm:"tulku"},
+   {s:"With la below, the upper letter disappears and only the “l” remains.",wm:"lama, teacher"},{s:"Also sounds just “l”.",wm:"wind, subtle energy"},
+   {s:"Exception: ཟླ sounds “d”.",wm:"moon"},{s:"The wa-zur is almost always silent; it only distinguishes words in writing.",wm:"salt"}]},
+  {en:"Om Mani",intro:"ཨོཾ་མ་ཎི་པདྨེ་ཧཱུྃ, syllable by syllable. Mantras are Sanskrit written in Tibetan letters, so they carry marks that don't appear in ordinary Tibetan.",items:[
+   {cat:"ཨ + naro + nasal",s:"ཨ with naro (ོ) gives “o”. The mark ཾ on top closes the syllable with “m”.",o:OM},
+   {cat:"consonant",s:"Just the consonant, with its built-in “a”."},
+   {cat:"retroflex + gigu",s:"ཎ is a mirrored ན: the Sanskrit retroflex “n”, with the tip of the tongue curled back. With gigu, “ni”.",o:["Write ཎ, the mirrored ན.","Gigu (ི) on top, last."]},
+   {cat:"stack + drengbu",s:"པ (pa), then ད with མ below (དྨ) and drengbu (e). Read the Tibetan way, it usually sounds “peme”.",o:["Write པ.","Write ད and, attached below, a smaller མ.","Drengbu (ེ) above the ད."]},
+   {cat:"long vowel + nasal",s:"ཧ (h), the ཱ that lengthens the vowel, zhabkyu (u) and, on top, ྃ, the final nasal. Tibetans say “hung”.",o:HUNG},
+   {cat:"full mantra",s:"The mantra of Avalokiteshvara (Chenrezig). The dots (tsheg) separate the syllables.",o:FULL}]},
+  {en:"Guru",intro:"ཨོཾ་ཨཱཿ་ཧཱུྃ་བཛྲ་གུ་རུ་པདྨ་སིདྡྷི་ཧཱུྃ། The Vajra Guru mantra of Guru Rinpoche (Padmasambhava). It is also Sanskrit in Tibetan letters, so it has stacks and marks that ordinary Tibetan doesn't use.",items:[
+   {cat:"ཨ + naro + nasal",s:"As in Om Mani: ཨ with naro (ོ) gives “o”, and the mark ཾ closes it with “m”.",o:OM},
+   {cat:"long vowel + visarga",s:"ཨ with the ཱ that lengthens the vowel, and the visarga ཿ (two dots on the right), which leaves a breath at the end. Sounds “ah”.",o:["Write ཨ.","Below, the small ཱ that lengthens the vowel.","On the right, the two dots of the visarga (ཿ), one above the other."]},
+   {cat:"long vowel + nasal",s:"As in Om Mani: ཧ, the long ཱ, zhabkyu and the moon with a dot (ྃ). Tibetans say “hung”.",o:HUNG},
+   {cat:"stack",s:"བ (ba), then ཛ (dza) with ra-ta (ྲ) attached below. Sanskrit “vajra”; Tibetans say “benza”.",wm:"vajra, diamond",o:["Write བ.","Write ཛ, with the mark on top.","Attached below ཛ, the ra-ta (ྲ): a short stroke going diagonally down."]},
+   {cat:"ga + u",s:"ག (ga) with zhabkyu: “gu”."},
+   {cat:"ra + u",s:"ར (ra) with zhabkyu: “ru”. Together with གུ, “guru”.",wm:"teacher"},
+   {cat:"stack",s:"Like the padme of Om Mani, without the drengbu: པ, then ད with མ below. Sounds “pema”.",wm:"lotus",o:["Write པ.","Write ད and, attached below, a smaller མ."]},
+   {cat:"triple stack",s:"ས with gigu (si), then ད with another ད and a small ཧ stacked below (དྡྷ), and gigu. Sounds “siddhi”.",wm:"accomplishment",o:["Write ས and the gigu (ི) on top.","Write ད.","Below it, a smaller ད.","Below that, the small ཧ (ྷ).","Gigu (ི) above the top ད."]},
+   {cat:"long vowel + nasal",s:"The same hung as at the start, now closing the mantra."},
+   {cat:"full mantra",s:"The mantra of Guru Rinpoche. The dots (tsheg) separate the syllables; the vertical stroke (shad, །) ends the phrase.",o:[...FULL,"At the end, the shad (།): a vertical stroke going down from the headline."]}]},
+  {en:"Vajrakilaya",intro:"ཨོཾ་བཛྲ་ཀཱི་ལི་ཀཱི་ལ་ཡ་སརྦ་བིགྷྣཱན་བཾ་ཧཱུྃ་ཕཊ྄ The mantra of Vajrakilaya (Dorje Phurba). Spelling and recitation vary slightly between lineages; check against your Rinpoche's practice text.",items:[
+   {cat:"ཨ + naro + nasal",s:"ཨ with naro (ོ) and the mark ཾ: “om”.",o:OM},
+   {cat:"stack",s:"བ (ba), then ཛ with ra-ta (ྲ) below. Pronounced “benza”.",o:["Write བ.","Write ཛ, with the mark on top.","Attached below ཛ, the ra-ta (ྲ)."]},
+   {cat:"long vowel",s:"ཀ with ཱ below and gigu on top: the long Sanskrit “i”. Sounds “ki”.",o:["Write ཀ.","Below, the small ཱ.","Gigu (ི) on top, last."]},
+   {cat:"la + i",s:"ལ (la) with gigu: “li”. With ཀཱི, “kili”."},
+   {cat:"three syllables",s:"ཀཱི, ལ and ཡ: “kilaya”, the ritual dagger (phurba).",wm:"kila, phurba",o:["Write ཀཱི.","Tsheg, then ལ.","Tsheg, then ཡ."]},
+   {cat:"ra-go",s:"ས (sa), then ར on top of བ (རྦ), as in the superscripts. Sanskrit “sarva”, all; recited “sarwa”.",wm:"all",o:["Write ས.","Write the ra-go: a shrunken ར, without the leg.","Below it, the whole བ."]},
+   {cat:"triple stack",s:"བི (bi), then ག with a small ཧ and ན below and the long ཱ (གྷྣཱ), and finally ན. “Obstacles”; recited “bighanen”.",wm:"obstacles",o:["Write བ and the gigu (ི) on top.","Write ག.","Below, the small ཧ (ྷ).","Below it, the small ན (ྣ) and the ཱ.","Finally, a whole ན on the right."]},
+   {cat:"ba + nasal",s:"བ with the mark ཾ: “bam”.",o:["Write བ.","The mark ཾ on top."]},
+   {cat:"long vowel + nasal",s:"The same hung as in the other mantras."},
+   {cat:"retroflex + virama",s:"ཕ (pha) and ཊ, the mirrored ཏ (retroflex t), with the small stroke ྄ below, which removes the vowel. Recited “phet” or “phat”.",o:["Write ཕ.","Write ཊ, the mirrored ཏ.","Below ཊ, the small diagonal stroke ྄."]},
+   {cat:"full mantra",s:"The mantra of Vajrakilaya, syllable by syllable, with the tsheg between them.",o:FULL}]},
+  {en:"Cards",intro:"Choose the rows and lessons you want to review. With Vowels on, each chosen consonant also appears with i, u, e, o; with no consonant chosen, the 10 basic vowel cards are used. Words brings only words written with the chosen consonants (no stacked letters). Tap the card to flip it. Cards you miss come back into the deck soon after."}];
+  LE.forEach((e,li)=>{const l=LES[li];l.en=e.en;l.intro=e.intro;(e.items||[]).forEach((x,i)=>{const it=l.items[i];
+    if(x.s)it.s=x.s;if(x.wm!==undefined)it.wm=x.wm;if(x.o)it.o=x.o;if(x.cat)it.cat=x.cat;});});
+  const WE=["pillar","mouth","snow","house","food","khata (offering scarf)","I","speech","essence","goose","what?","joy","clothes","Ganges river","head","nine","virtue","geshe, learned teacher","one","ten","table","water","pair","barley beer","dharma","offering","tea","rainbow","Manjushri","fish","sun","day","two","practice","conversation","torma","hidden treasure (terma)","end, last","rope","plain","mind (honorific)","now","time","Kalachakra","poison","conch","faith","happiness","seven","desire","Amdo","sick","forest","west","inside","when","place","black","sky, space","lotus","text, book","hero","glory","Friday","father and mother","cave","phurba, ritual dagger","noble","son","daughter, girl","cow, ox","vase","Tibet","Tibetan script","power, empowerment","insect","thought","mother","person","fire","eye","flower","mirror","butter","red","khenpo, abbot","roasted barley flour","sandalwood","hot","life","word","lake","trade","Amitayus","treasury","fox","peace","field","feet (honorific)","face (honorific)","four","food","form","light","Amitabha","milk","wheel","letter","country, region","father (honorific)","mother (honorific)","mountain","mountain","wild animal","oneself","cotton cloth","precious","path","hand","body","year","sheep","tree, wood","meat","deer","wisdom","mind","sentient being","earth","gold","yellow","white","three","very","Mongols","mother","father","myrobalan (medicinal plant)","sugar","silver"];
+  if(WE.length!==WD.length)console.warn("word list length mismatch",WE.length,WD.length);
+  WE.forEach((m,i)=>{if(WD[i])WD[i].mn=m;});
+}
 const V=[["ི","i","gigu"],["ུ","u","zhabkyu"],["ེ","e","drengbu"],["ོ","o","naro"]];
 function itemAt(l,i,j){if(l==="w"){const w=WD[i],am=dial==="amdo";
-    return{g:w.t,r:am?w.wy:w.pr,lh:`<b>${w.mn}</b> · Wylie: ${w.wy}`,am:`<b>${w.mn}</b> · leitura tibetana central: ${w.pr}`,w:w.t,wp:"",wy:"",wm:""};}
-  if(l==="v"){const [m,v,n]=V[i],[g,r]=L[j],ro=r.slice(0,-1)+v,tx=`${g} (${r}) com ${n}: “${ro}”.`;
+    return{g:w.t,r:am?w.wy:w.pr,lh:`<b>${w.mn}</b> · Wylie: ${w.wy}`,am:`<b>${w.mn}</b> · ${T("leitura tibetana central","central Tibetan reading")}: ${w.pr}`,w:w.t,wp:"",wy:"",wm:""};}
+  if(l==="v"){const [m,v,n]=V[i],[g,r]=L[j],ro=r.slice(0,-1)+v,tx=`${g} (${r}) ${T("com","with")} ${n}: “${ro}”.`;
     return{g:g+m,r:ro,t:P[j][0],lh:tx,am:tx,w:g+m,wp:ro,wy:ro,wm:""};}
   if(l===0){const [t,txt,w,wp,wm]=P[i];return{g:L[i][0],r:L[i][1],t,lh:txt,am:AM[i],w,wp,wy:WY[i],wm,o:O[i],src:true};}
-  const it=LES[l].items[i];return{...it,lh:it.s,am:it.s,o:it.o||[l===1?"Escreva a consoante inteira, depois a vogal.":CONS]};}
+  const it=LES[l].items[i];return{...it,lh:it.s,am:it.s,o:it.o||[l===1?T("Escreva a consoante inteira, depois a vogal.","Write the whole consonant, then the vowel."):CONS]};}
 function item(){return itemAt(les,idx);}
 function count(){return les===0?L.length:LES[les].items.length;}
-const COLS=["não aspirada","aspirada","sonora (tom baixo)","nasal"];
+const COLS=EN?["unaspirated","aspirated","voiced (low tone)","nasal"]:["não aspirada","aspirada","sonora (tom baixo)","nasal"];
 const $=id=>document.getElementById(id);
 const store={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},
   set(k,v){try{localStorage.setItem(k,JSON.stringify(v));if(["cardSel","cardFace","dial"].includes(k))localStorage.setItem("prefsAt",String(Date.now()))}catch(e){}}};
@@ -454,16 +583,16 @@ function colText(i){if(i<16)return COLS[i%4];return "";}
 function renderPron(){const {t,lh:txt,am,w,wp,wy,wm}=item();
   syncDial();
   if(dial==="amdo"){$("curP").innerHTML=am;
-    $("curW").innerHTML=`<span class="lbl">Palavra</span> <span class="wt">${w}</span> <span class="wp">${wy}</span> <span class="wm">${wm}</span>`;}
-  else{$("curP").innerHTML=(t?`<span class="tone ${t}">tom ${t===HI?"agudo":"grave"}</span>`:"")+txt;
-    $("curW").innerHTML=`<span class="lbl">Palavra</span> <span class="wt">${w}</span> <span class="wp">${wp}</span> <span class="wm">${wm}</span>`;}
+    $("curW").innerHTML=`<span class="lbl">${T("Palavra","Word")}</span> <span class="wt">${w}</span> <span class="wp">${wy}</span> <span class="wm">${wm}</span>`;}
+  else{$("curP").innerHTML=(t?`<span class="tone ${t}">${t===HI?T("tom agudo","high tone"):T("tom grave","low tone")}</span>`:"")+txt;
+    $("curW").innerHTML=`<span class="lbl">${T("Palavra","Word")}</span> <span class="wt">${w}</span> <span class="wp">${wp}</span> <span class="wm">${wm}</span>`;}
   $("curW").hidden=(w===item().g&&!wm);
-  $("dialNote").textContent=dial==="amdo"?"Amdo (incluindo Golok): sem tons; as letras da 3ª coluna e ཞ ཟ soam sonoras. A palavra aparece transliterada letra por letra, que no Amdo fica mais perto da fala. Detalhes de Golok: confirme com o seu professor.":"Lhasa (tibetano central): com tom agudo ou grave; a 3ª coluna perde a sonoridade e soa em tom grave.";}
+  $("dialNote").textContent=dial==="amdo"?T("Amdo (incluindo Golok): sem tons; as letras da 3ª coluna e ཞ ཟ soam sonoras. A palavra aparece transliterada letra por letra, que no Amdo fica mais perto da fala. Detalhes de Golok: confirme com o seu professor.","Amdo (including Golok): no tones; the 3rd-column letters and ཞ ཟ are voiced. The word is shown transliterated letter by letter, which in Amdo is closer to speech. Golok details: check with your teacher."):T("Lhasa (tibetano central): com tom agudo ou grave; a 3ª coluna perde a sonoridade e soa em tom grave.","Lhasa (central Tibetan): high or low tone; the 3rd column loses its voicing and is said in a low tone.");}
 function go(i){const n=count();idx=(i+n)%n;store.set("idx"+les,idx);strokes=[];const it=item();
   $("curG").textContent=it.g;$("curR").textContent=it.r;
-  if(les===0){const row=Math.floor(idx/4)+1,c=colText(idx);$("curC").textContent="linha "+row+(c?" · "+c:"");}else $("curC").textContent=it.cat;
+  if(les===0){const row=Math.floor(idx/4)+1,c=colText(idx);$("curC").textContent=T("linha ","row ")+row+(c?" · "+c:"");}else $("curC").textContent=it.cat;
   const ol=$("curO");ol.innerHTML="";(it.o||[]).forEach(s=>{const li=document.createElement("li");li.textContent=s;ol.appendChild(li);});
-  $("curOn").textContent=it.src?"Fonte: diagramas de Chris Fynn, How to write the Tibetan script. Ao escrever uma sílaba, termine com o tsheg (་) à direita, na altura do cabeçalho.":"";
+  $("curOn").textContent=it.src?T("Fonte: diagramas de Chris Fynn, How to write the Tibetan script. Ao escrever uma sílaba, termine com o tsheg (་) à direita, na altura do cabeçalho.","Source: Chris Fynn’s diagrams, How to write the Tibetan script. When writing a syllable, finish with the tsheg (་) on the right, at headline height."):"";
   renderPron();
   buildTable();resetResult();drawGuide();redraw();}
 function size(){const r=ink.getBoundingClientRect(),d=window.devicePixelRatio||1;
@@ -479,7 +608,7 @@ function drawGuide(){if(LES[les].cards)return;const W=guide.width,c=gctx;c.clear
   c.strokeStyle=tok("--line");c.lineWidth=Math.max(1,W/400);c.setLineDash([W/60,W/80]);
   c.beginPath();c.moveTo(W*.06,lay.top);c.lineTo(W*.94,lay.top);c.stroke();
   c.setLineDash([]);c.beginPath();c.moveTo(W/2,W*.04);c.lineTo(W/2,W*.96);c.globalAlpha=.4;c.stroke();c.globalAlpha=1;
-  c.fillStyle=tok("--saffron");c.font=`${W*.028}px ${tok("--mono")}`;c.textAlign="left";c.fillText("cabeçalho",W*.06,lay.top-W*.012);
+  c.fillStyle=tok("--saffron");c.font=`${W*.028}px ${tok("--mono")}`;c.textAlign="left";c.fillText(T("cabeçalho","headline"),W*.06,lay.top-W*.012);
   if(showGuide){glyphLayout(c,W);c.fillStyle=tok("--ghost");c.fillText(item().g,W/2,lay.base);}
 }
 function lw(p){const W=ink.width;return W*0.022*(p>0&&p<1?0.6+p*0.8:1);}
@@ -500,7 +629,7 @@ function mask(drawFn,N){const c=document.createElement("canvas");c.width=c.heigh
 function dilate(m,N,r){const o=new Uint8Array(N*N);for(let y=0;y<N;y++)for(let x=0;x<N;x++){if(!m[y*N+x])continue;
   for(let dy=-r;dy<=r;dy++)for(let dx=-r;dx<=r;dx++){const X=x+dx,Y=y+dy;if(X>=0&&Y>=0&&X<N&&Y<N&&dx*dx+dy*dy<=r*r)o[Y*N+X]=1;}}return o;}
 function evaluate(){
-  if(!strokes.length){$("verdict").textContent="Nada escrito ainda. Trace a letra e toque em Avaliar.";return;}
+  if(!strokes.length){$("verdict").textContent=T("Nada escrito ainda. Trace a letra e toque em Avaliar.","Nothing written yet. Trace the letter and tap Check.");return;}
   const N=160;
   const G=mask((c,W)=>{const l=glyphLayout(c,W);c.fillStyle="#000";c.fillText(item().g,W/2,l.base);},N);
   const S=mask((c,W)=>{c.strokeStyle="#000";c.lineCap="round";c.lineJoin="round";c.lineWidth=W*0.03;
@@ -510,22 +639,22 @@ function evaluate(){
   const cov=g?gc/g:0,pre=s?sc/s:0;
   show("cov",cov);show("pre",pre);
   let v;
-  if(cov>=.8&&pre>=.85){v="Muito bom. A forma está próxima do modelo.";done.add(les+":"+idx);store.set("done",[...done]);buildTable();}
-  else if(cov<.6&&pre>=.8)v="O que você traçou está no lugar certo, mas faltam partes da letra. Confira o modelo e complete os traços.";
-  else if(pre<.6)v="Boa parte do traço saiu da forma. Desacelere, siga o modelo e preste atenção ao cabeçalho.";
-  else v="No caminho. Repita algumas vezes com o modelo e depois tente sem ele.";
-  if(!showGuide&&cov>=.7)v+=" Escrita de memória, sem modelo.";
+  if(cov>=.8&&pre>=.85){v=T("Muito bom. A forma está próxima do modelo.","Very good. The shape is close to the guide.");done.add(les+":"+idx);store.set("done",[...done]);buildTable();}
+  else if(cov<.6&&pre>=.8)v=T("O que você traçou está no lugar certo, mas faltam partes da letra. Confira o modelo e complete os traços.","What you traced is in the right place, but parts of the letter are missing. Check the guide and complete the strokes.");
+  else if(pre<.6)v=T("Boa parte do traço saiu da forma. Desacelere, siga o modelo e preste atenção ao cabeçalho.","Much of the stroke left the shape. Slow down, follow the guide and watch the headline.");
+  else v=T("No caminho. Repita algumas vezes com o modelo e depois tente sem ele.","Getting there. Repeat a few times with the guide, then try without it.");
+  if(!showGuide&&cov>=.7)v+=T(" Escrita de memória, sem modelo."," Written from memory, without the guide.");
   $("verdict").textContent=v;
 }
 function show(k,v){const p=Math.round(v*100),col=v>=.8?"--good":v>=.6?"--warn":"--bad";
   $(k+"V").textContent=p+"%";$(k+"V").style.color=tok(col);$(k+"F").style.width=p+"%";$(k+"F").style.background=tok(col);}
 function resetResult(){for(const k of["cov","pre"]){$(k+"V").textContent="—";$(k+"V").style.color="";$(k+"F").style.width="0";}
-  $("verdict").textContent="Escreva a letra e toque em Avaliar. Cobertura mede quanto da letra você traçou; precisão mede quanto do seu traço caiu sobre a forma.";}
+  $("verdict").textContent=T("Escreva a letra e toque em Avaliar. Cobertura mede quanto da letra você traçou; precisão mede quanto do seu traço caiu sobre a forma.","Write the letter and tap Check. Coverage measures how much of the letter you traced; precision measures how much of your stroke landed on the shape.");}
 
 $("prev").onclick=()=>go(idx-1);$("next").onclick=()=>go(idx+1);
 $("undo").onclick=()=>{strokes.pop();redraw();};$("clear").onclick=()=>{strokes=[];redraw();resetResult();};
 $("toggle").onclick=e=>{showGuide=!showGuide;e.currentTarget.setAttribute("aria-pressed",showGuide);
-  e.currentTarget.textContent=showGuide?"Modelo visível":"Modelo oculto";drawGuide();};
+  e.currentTarget.textContent=showGuide?T("Modelo visível","Guide shown"):T("Modelo oculto","Guide hidden");drawGuide();};
 $("check").onclick=evaluate;
 for(const b of document.querySelectorAll(".dial button[data-d]"))b.onclick=()=>{dial=b.dataset.d;store.set("dial",dial);if(LES[les].cards){syncDial();showCard();}else renderPron();};
 new ResizeObserver(size).observe($("stage"));
@@ -537,24 +666,24 @@ function setLes(n){les=n;store.set("les",les);const isC=!!LES[les].cards;
   const grp=LES[les].group;if(grp)store.set("grp:"+grp,les);
   for(const b of document.querySelectorAll("#tabs button"))b.setAttribute("aria-selected",String(b.dataset.g?b.dataset.g===grp:+b.dataset.l===les));
   const sub=$("subtabs");sub.hidden=!grp;sub.innerHTML="";
-  if(grp)LES.forEach((l,i)=>{if(l.group!==grp)return;const b=document.createElement("button");b.type="button";b.role="tab";b.textContent=l.name;
+  if(grp)LES.forEach((l,i)=>{if(l.group!==grp)return;const b=document.createElement("button");b.type="button";b.role="tab";b.textContent=EN&&l.en?l.en:l.name;
     b.setAttribute("aria-selected",String(i===les));b.onclick=()=>setLes(i);sub.appendChild(b);});
   $("lesIntro").textContent=LES[les].intro;
   if(isC){syncDial();buildChips();deal();return;}
   idx=store.get("idx"+les,les===0?store.get("idx",0):0);if(idx>=count())idx=0;
-  $("t-lbl").textContent=LES[les].name;go(idx);}
+  $("t-lbl").textContent=EN&&LES[les].en?LES[les].en:LES[les].name;go(idx);}
 function syncDial(){for(const b of document.querySelectorAll(".dial button[data-d]"))b.setAttribute("aria-pressed",b.dataset.d===dial);}
 /* ---- Cards ---- */
 let face=store.get("cardFace","g"),deck=[],total=0,firstOk=0,missed=new Set(),revealed=false;
 function sources(){const s=[];for(let r=0;r<8;r++){const ids=[];for(let i=r*4;i<Math.min(L.length,r*4+4);i++)ids.push([0,i]);
-    s.push({key:"c"+r,label:ids.map(([,i])=>L[i][0]).join(" "),sub:"linha "+(r+1),ids});}
+    s.push({key:"c"+r,label:ids.map(([,i])=>L[i][0]).join(" "),sub:T("linha ","row ")+(r+1),ids});}
   const cons=s.filter(x=>sel.has(x.key)).flatMap(x=>x.ids.map(([,i])=>i));
   LES.forEach((l,li)=>{if(li===0||l.cards)return;
     if(li===1&&cons.length){const ids=cons.flatMap(j=>V.map((_,vi)=>["v",vi,j]));
-      s.push({key:"l:"+l.name,label:l.name,sub:"× consoantes · "+ids.length+" cards",ids,txt:true});return;}
-    s.push({key:"l:"+l.name,label:l.name,sub:(li===1?"básico · ":"")+l.items.length+" cards",ids:l.items.map((_,i)=>[li,i]),txt:true});});
+      s.push({key:"l:"+l.name,label:EN&&l.en?l.en:l.name,sub:T("× consoantes · ","× consonants · ")+ids.length+" cards",ids,txt:true});return;}
+    s.push({key:"l:"+l.name,label:EN&&l.en?l.en:l.name,sub:(li===1?T("básico · ","basic · "):"")+l.items.length+" cards",ids:l.items.map((_,i)=>[li,i]),txt:true});});
   {const cs=new Set(cons);const ids=WD.map((w,i)=>[w,i]).filter(([w])=>!cons.length||w.used.every(u=>cs.has(u))).map(([,i])=>["w",i]);
-    s.splice(9,0,{key:"w",label:"Palavras",sub:(cons.length?"com essas letras · ":"todas · ")+ids.length,ids,txt:true});}
+    s.splice(9,0,{key:"w",label:T("Palavras","Words"),sub:(cons.length?T("com essas letras · ","with these letters · "):T("todas · ","all · "))+ids.length,ids,txt:true});}
   return s;}
 let sel=new Set(store.get("cardSel",["c0"]).filter(k=>!/^v\d$/.test(k)));
 function buildChips(){const box=$("chips");box.innerHTML="";
@@ -565,18 +694,18 @@ function buildChips(){const box=$("chips");box.innerHTML="";
 function deal(){const seen=new Set();deck=[];for(const src of sources())if(sel.has(src.key))for(const id of src.ids){const k=id.join(":");if(!seen.has(k)){seen.add(k);deck.push(id);}}
   for(let i=deck.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[deck[i],deck[j]]=[deck[j],deck[i]];}
   total=deck.length;firstOk=0;missed=new Set();revealed=false;showCard();}
-function pronOf(it){if(dial==="amdo")return it.am;return (it.t?`<span class="tone ${it.t}" style="font-family:var(--mono);font-size:.72rem;text-transform:uppercase;padding:2px 8px;border-radius:999px;border:1px solid currentColor;margin-right:6px;color:var(${it.t===HI?"--saffron":"--maroon"})">tom ${it.t===HI?"agudo":"grave"}</span>`:"")+it.lh;}
+function pronOf(it){if(dial==="amdo")return it.am;return (it.t?`<span class="tone ${it.t}" style="font-family:var(--mono);font-size:.72rem;text-transform:uppercase;padding:2px 8px;border-radius:999px;border:1px solid currentColor;margin-right:6px;color:var(${it.t===HI?"--saffron":"--maroon"})">${it.t===HI?T("tom agudo","high tone"):T("tom grave","low tone")}</span>`:"")+it.lh;}
 function showCard(){const c=$("card");
   $("cShow").hidden=revealed||!deck.length;$("cWrong").hidden=$("cRight").hidden=!revealed||!deck.length;
-  if(!total){c.innerHTML=`<span class="hint">Escolha pelo menos uma linha ou lição acima.</span>`;$("cStat").textContent="";return;}
-  if(!deck.length){c.innerHTML=`<span class="cr">Baralho completo</span><span class="cp">${firstOk} de ${total} de primeira.</span><span class="hint">Toque em “Embaralhar de novo” para repetir.</span>`;$("cStat").textContent="";return;}
+  if(!total){c.innerHTML=`<span class="hint">${T("Escolha pelo menos uma linha ou lição acima.","Choose at least one row or lesson above.")}</span>`;$("cStat").textContent="";return;}
+  if(!deck.length){c.innerHTML=`<span class="cr">${T("Baralho completo","Deck complete")}</span><span class="cp">${EN?`${firstOk} of ${total} on the first try.`:`${firstOk} de ${total} de primeira.`}</span><span class="hint">${T("Toque em “Embaralhar de novo” para repetir.","Tap “Shuffle again” to repeat.")}</span>`;$("cStat").textContent="";return;}
   const it=itemAt(...deck[0]),long=[...it.g].length>6;
   const gl=`<span class="cg${long?" long":""}">${it.g}</span>`,rl=`<span class="cr">${it.r}</span>`;
-  let h=face==="g"?gl:rl+`<span class="hint">Como se escreve?</span>`;
+  let h=face==="g"?gl:rl+`<span class="hint">${T("Como se escreve?","How is it written?")}</span>`;
   if(revealed){h=(face==="g"?gl+"<hr>"+rl:rl+"<hr>"+gl)+`<span class="cp">${pronOf(it)}</span>`;
     const wp=dial==="amdo"?it.wy:it.wp;if(!(it.w===it.g&&!it.wm))h+=`<span class="cw"><span class="wt">${it.w}</span> ${wp}${it.wm?" · "+it.wm:""}</span>`;}
-  else h+=`<span class="hint">Toque para virar</span>`;
-  c.innerHTML=h;$("cStat").textContent=`${total-deck.length} de ${total} feitos · ${deck.length} no baralho`;}
+  else h+=`<span class="hint">${T("Toque para virar","Tap to flip")}</span>`;
+  c.innerHTML=h;$("cStat").textContent=(EN?`${total-deck.length} of ${total} done · ${deck.length} in the deck`:`${total-deck.length} de ${total} feitos · ${deck.length} no baralho`);}
 function reveal(){if(!deck.length)return;revealed=true;showCard();$(face==="g"?"cRight":"cRight").focus({preventScroll:true});}
 $("card").onclick=()=>{if(!revealed)reveal();};$("cShow").onclick=reveal;
 $("cRight").onclick=()=>{const k=deck[0].join(":");if(!missed.has(k))firstOk++;deck.shift();revealed=false;showCard();};
@@ -588,27 +717,28 @@ for(const b of document.querySelectorAll(".dial button[data-f]"))b.onclick=()=>{
 const tabs=$("tabs"),seenG=new Set();LES.forEach((l,i)=>{if(l.group&&seenG.has(l.group))return;
   const b=document.createElement("button");b.type="button";b.role="tab";b.dataset.l=i;
   if(l.group){seenG.add(l.group);b.dataset.g=l.group;b.textContent=l.group;b.onclick=()=>setLes(store.get("grp:"+l.group,i));}
-  else{b.textContent=l.name;b.onclick=()=>setLes(i);}tabs.appendChild(b);});
+  else{b.textContent=EN&&l.en?l.en:l.name;b.onclick=()=>setLes(i);}tabs.appendChild(b);});
 setLes(Math.min(store.get("les",0),LES.length-1));
 (()=>{const b=$("fs"),d=document,el=d.documentElement;
   const req=el.requestFullscreen||el.webkitRequestFullscreen,ex=d.exitFullscreen||d.webkitExitFullscreen;
   const on=()=>!!(d.fullscreenElement||d.webkitFullscreenElement);
   if(!req||!(d.fullscreenEnabled||d.webkitFullscreenEnabled))return;b.hidden=false;
-  const sync=()=>{b.textContent=on()?"✕ Sair da tela cheia":"⛶ Tela cheia";};
+  const sync=()=>{b.textContent=on()?T("✕ Sair da tela cheia","✕ Exit full screen"):T("⛶ Tela cheia","⛶ Full screen");};
   b.onclick=async()=>{try{if(on())await ex.call(d);else await req.call(el);}catch(e){b.hidden=true;}sync();};
   d.addEventListener("fullscreenchange",sync);d.addEventListener("webkitfullscreenchange",sync);})();
 (document.fonts?document.fonts.load("100px 'Noto Serif Tibetan'","ཀ"):Promise.resolve()).then(()=>{drawGuide();});
 
 /* ---- App offline: atualização + sincronização do progresso ---- */
-const APP_VERSION="202611061541";
+const APP_VERSION="202611061600";
+if(EN)for(const el of document.querySelectorAll(".sync [data-en],#dlg [data-en]"))el.innerHTML=el.dataset.en;
 (()=>{const st=$("syncSt"),btn=$("sync"),dlg=$("dlg"),GD="Caderno de Uchen — progresso",GF="progresso.json";
   const ls={get:k=>{try{return localStorage.getItem(k)}catch(e){return null}},set:(k,v)=>{try{v==null?localStorage.removeItem(k):localStorage.setItem(k,v)}catch(e){}}};
   const say=t=>{st.textContent=t;};
-  const last=ls.get("lastSync");say(last?"Última sincronização: "+new Date(+last).toLocaleString("pt-BR",{dateStyle:"short",timeStyle:"short"}):"Funciona sem internet.");
+  const last=ls.get("lastSync");say(last?T("Última sincronização: ","Last sync: ")+new Date(+last).toLocaleString(EN?"en-US":"pt-BR",{dateStyle:"short",timeStyle:"short"}):T("Funciona sem internet.","Works offline."));
   let reloadReady=false;
   if("serviceWorker" in navigator){const hadCtl=!!navigator.serviceWorker.controller;navigator.serviceWorker.register("sw.js").catch(()=>{});
     navigator.serviceWorker.addEventListener("controllerchange",()=>{if(reloadReady||!hadCtl)return;reloadReady=true;
-      say("Versão nova instalada.");btn.textContent="↻ Abrir versão nova";btn.onclick=()=>location.reload();});}
+      say(T("Versão nova instalada.","New version installed."));btn.textContent=T("↻ Abrir versão nova","↻ Open new version");btn.onclick=()=>location.reload();});}
   async function update(){const reg=await navigator.serviceWorker?.getRegistration();if(!reg)return false;
     await reg.update();const w=reg.installing||reg.waiting;if(!w)return false;
     await new Promise(r=>{if(w.state==="activated")return r();w.addEventListener("statechange",()=>{if(w.state==="activated")r();});setTimeout(r,8000);});return true;}
@@ -630,19 +760,19 @@ const APP_VERSION="202611061541";
     let changed=false;for(const k of ["done","cardSel","cardFace","dial"]){if(merged[k]===undefined)continue;const v=JSON.stringify(k==="done"?[...merged.done].sort():merged[k]),cur=JSON.stringify(k==="done"?[...(local.done||[])].sort():local[k]);
       if(v!==cur){ls.set(k,JSON.stringify(merged[k]));changed=true;}}
     ls.set("prefsAt",String(merged.prefsAt));return changed;}
-  btn.onclick=async()=>{if(!navigator.onLine){say("Sem internet. Tudo continua salvo neste aparelho.");return;}
-    btn.disabled=true;say("Procurando versão nova…");
+  btn.onclick=async()=>{if(!navigator.onLine){say(T("Sem internet. Tudo continua salvo neste aparelho.","No internet. Everything stays saved on this device."));return;}
+    btn.disabled=true;say(T("Procurando versão nova…","Looking for a new version…"));
     try{const upd=await update().catch(()=>false);
-      if(!ls.get("ghToken")){if(upd){say("Versão nova instalada. Recarregando…");setTimeout(()=>location.reload(),600);return;}
-        say("O app está atualizado. Para levar o progresso entre aparelhos, toque em ⚙.");return;}
-      say("Sincronizando o progresso…");const ch=await syncProgress();ls.set("lastSync",String(Date.now()));
-      if(ch||upd){say("Pronto. Recarregando…");setTimeout(()=>location.reload(),600);}
-      else say("Tudo em dia · "+new Date().toLocaleTimeString("pt-BR",{timeStyle:"short"}));}
-    catch(e){say(e.message==="chave"?"A chave do GitHub não foi aceita. Toque em ⚙ e cole uma nova.":"Não deu para sincronizar agora ("+e.message+"). Nada se perdeu.");}
+      if(!ls.get("ghToken")){if(upd){say(T("Versão nova instalada. Recarregando…","New version installed. Reloading…"));setTimeout(()=>location.reload(),600);return;}
+        say(T("O app está atualizado. Para levar o progresso entre aparelhos, toque em ⚙.","The app is up to date. To carry your progress across devices, tap ⚙."));return;}
+      say(T("Sincronizando o progresso…","Syncing your progress…"));const ch=await syncProgress();ls.set("lastSync",String(Date.now()));
+      if(ch||upd){say(T("Pronto. Recarregando…","Done. Reloading…"));setTimeout(()=>location.reload(),600);}
+      else say(T("Tudo em dia · ","All up to date · ")+new Date().toLocaleTimeString(EN?"en-US":"pt-BR",{timeStyle:"short"}));}
+    catch(e){say(e.message==="chave"?T("A chave do GitHub não foi aceita. Toque em ⚙ e cole uma nova.","GitHub did not accept the key. Tap ⚙ and paste a new one."):T("Não deu para sincronizar agora (","Couldn’t sync right now (")+e.message+T("). Nada se perdeu.","). Nothing was lost."));}
     finally{btn.disabled=false;}};
   $("syncCfg").onclick=()=>{$("tok").value="";dlg.showModal();};
-  dlg.addEventListener("close",()=>{if(dlg.returnValue==="save"&&$("tok").value.trim()){ls.set("ghToken",$("tok").value.trim());ls.set("gistId",null);say("Chave salva. Toque em Sincronizar.");}
-    if(dlg.returnValue==="forget"){ls.set("ghToken",null);ls.set("gistId",null);say("Chave apagada deste aparelho.");}});
+  dlg.addEventListener("close",()=>{if(dlg.returnValue==="save"&&$("tok").value.trim()){ls.set("ghToken",$("tok").value.trim());ls.set("gistId",null);say(T("Chave salva. Toque em Sincronizar.","Key saved. Tap Sync."));}
+    if(dlg.returnValue==="forget"){ls.set("ghToken",null);ls.set("gistId",null);say(T("Chave apagada deste aparelho.","Key removed from this device."));}});
 })();
 </script>
 </body></html>
